@@ -9,6 +9,7 @@ const loading = ref(true)
 const username = ref('')
 const website = ref('')
 const avatar_url = ref('')
+const favChar = ref('')
 
 onMounted(() => {
   getProfile()
@@ -21,7 +22,7 @@ async function getProfile() {
 
     let { data, error, status } = await supabase
       .from('profiles')
-      .select(`username, website, avatar_url`)
+      .select(`username, website, avatar_url, favChar`)
       .eq('id', user.id)
       .single()
 
@@ -31,6 +32,7 @@ async function getProfile() {
       username.value = data.username
       website.value = data.website
       avatar_url.value = data.avatar_url
+      favChar.value = data.favChar
     }
   } catch (error) {
     alert(error.message)
@@ -48,6 +50,7 @@ async function updateProfile() {
       id: user.id,
       username: username.value,
       website: website.value,
+      favChar: favChar.value,
       avatar_url: avatar_url.value,
       updated_at: new Date()
     }
@@ -78,16 +81,20 @@ async function signOut() {
 <template>
   <form class="form-widget" @submit.prevent="updateProfile">
     <div>
-      <label for="email">Email</label>
+      <label for="email">Email: </label>
       <input id="email" type="text" :value="session.user.email" disabled />
     </div>
     <div>
-      <label for="username">Name</label>
+      <label for="username">Name: </label>
       <input id="username" type="text" v-model="username" />
     </div>
     <div>
-      <label for="website">Website</label>
+      <label for="website">Website: </label>
       <input id="website" type="url" v-model="website" />
+    </div>
+    <div>
+      <label for="favChar">Favorite Character: </label>
+      <input id="favChar" type="text" v-model="favChar" />
     </div>
 
     <div>
