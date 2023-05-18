@@ -10,7 +10,7 @@ const loading = ref(true)
 const username = ref('')
 const website = ref('')
 const avatar_url = ref('')
-const favChar = ref('')
+const addChar = ref('')
 
 onMounted(() => {
   getProfile()
@@ -23,7 +23,7 @@ async function getProfile() {
 
     let { data, error, status } = await supabase
       .from('profiles')
-      .select(`username, website, avatar_url, favChar`)
+      .select(`username, website, avatar_url, addChar`)
       .eq('id', user.id)
       .single()
 
@@ -33,7 +33,7 @@ async function getProfile() {
       username.value = data.username
       website.value = data.website
       avatar_url.value = data.avatar_url
-      favChar.value = data.favChar
+      addChar.value = data.addChar
     }
   } catch (error) {
     alert(error.message)
@@ -51,7 +51,7 @@ async function updateProfile() {
       id: user.id,
       username: username.value,
       website: website.value,
-      favChar: favChar.value,
+      addChar: addChar.value,
       avatar_url: avatar_url.value,
       updated_at: new Date()
     }
@@ -95,8 +95,17 @@ async function signOut() {
       <input id="website" type="url" v-model="website" />
     </div>
     <div>
-      <label for="favChar">Favorite Character: </label>
-      <input id="favChar" type="text" v-model="favChar" />
+      <label for="addChar">Add Characters: </label>
+      <input id="addChar" type="text" v-model="addChar" />
+    </div>
+
+    <div>
+      <input
+        class="button thirdary block"
+        @click=""
+        :value="loading ? 'Loading ...' : 'Choose Characters'"
+        :disabled="loading"
+      />
     </div>
 
     <div>
