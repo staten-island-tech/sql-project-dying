@@ -4,6 +4,7 @@
     <h3 class="words">{{ vision }}</h3>
     <h3 class="words">{{ weapon }}</h3>
     <h4 class="words">Descriptions: {{ description }}</h4>
+    <button class="btn" @click="$emit('addCard')">Add to Profile</button>
   </div>
 </template>
 
