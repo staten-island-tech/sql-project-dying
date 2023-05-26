@@ -20,9 +20,19 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="navTab">
+    <NavTab />
+  </div>
+
   <div class="container" style="padding: 50px 0 100px 0">
     <Account v-if="session" :session="session" />
     <Auth v-else />
     <NavTab />
   </div>
 </template>
+
+<style scoped>
+h1 {
+  font-size: 4rem;
+}
+</style>
