@@ -8,7 +8,6 @@
       :vision="character.vision"
       :weapon="character.weapon"
       :description="character.description"
-      :img="character.img"
     />
   </div>
 </template>

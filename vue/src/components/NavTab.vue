@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav>
-      <RouterLink to="/Data">Data</RouterLink>
+      <RouterLink to="/Data">Characters</RouterLink>
     </nav>
     <RouterView />
   </div>
