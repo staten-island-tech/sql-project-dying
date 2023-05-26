@@ -4,7 +4,6 @@
     <h3 class="words">{{ vision }}</h3>
     <h3 class="words">{{ weapon }}</h3>
     <h4 class="words">Descriptions: {{ description }}</h4>
-    <img class="image" :src="img" :alt="Character Icon" />
   </div>
 </template>
 
