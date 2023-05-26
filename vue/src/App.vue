@@ -28,9 +28,6 @@ onMounted(() => {
     <Account v-if="session" :session="session" />
     <Auth v-else />
   </div>
-  <div class="navTab">
-    <NavTab />
-  </div>
 </template>
 
 <style scoped>
