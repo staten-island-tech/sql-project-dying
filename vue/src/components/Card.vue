@@ -37,4 +37,9 @@ export default {
 .words {
   margin-left: 10px;
 }
+.btn {
+  align-self: center;
+  width: 6.5rem;
+  margin-bottom: 1rem;
+}
 </style>

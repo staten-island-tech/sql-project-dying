@@ -1,6 +1,6 @@
 <template>
+  <h1>Characters</h1>
   <div class="container">
-    <h1>Characters</h1>
     <Card
       v-for="character in character"
       :key="character"
@@ -38,4 +38,7 @@ onMounted(() => {
   justify-content: space-around;
 }
 
+h1 {
+  text-align: center;
+}
 </style>
