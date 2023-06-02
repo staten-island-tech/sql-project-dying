@@ -77,6 +77,11 @@ async function signOut() {
     loading.value = false
   }
 }
+
+// async function addChar() {
+//   try {
+//   } catch (error) {}
+// }
 </script>
 
 <template>
@@ -102,7 +107,8 @@ async function signOut() {
     <div>
       <input
         class="button thirdary block"
-        @click=""
+        type="submit"
+        @click="addChar"
         :value="loading ? 'Loading ...' : 'Choose Characters'"
         :disabled="loading"
       />
