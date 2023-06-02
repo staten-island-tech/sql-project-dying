@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { supabase } from '../supabase'
 import { onMounted, ref, toRefs } from 'vue'
 import Avatar from './Avatar.vue'
@@ -121,4 +121,11 @@ async function signOut() {
       <button class="button block" @click="signOut" :disabled="loading">Sign Out</button>
     </div>
   </form>
+</template> -->
+<template>
+  <div></div>
 </template>
+
+<script setup></script>
+
+<style lang="scss" scoped></style>
