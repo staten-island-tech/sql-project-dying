@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import { supabase } from '../supabase'
 import { onMounted, ref, toRefs } from 'vue'
 import Avatar from './Avatar.vue'
@@ -8,9 +8,7 @@ const { session } = toRefs(props)
 
 const loading = ref(true)
 const username = ref('')
-const website = ref('')
 const avatar_url = ref('')
-const addChar = ref('')
 
 onMounted(() => {
   getProfile()
@@ -22,8 +20,8 @@ async function getProfile() {
     const { user } = session.value
 
     let { data, error, status } = await supabase
-      .from('profiles')
-      .select(`username, website, avatar_url, addChar`)
+      .from('users')
+      .select(`username, avatar_url`)
       .eq('id', user.id)
       .single()
 
@@ -31,9 +29,7 @@ async function getProfile() {
 
     if (data) {
       username.value = data.username
-      website.value = data.website
       avatar_url.value = data.avatar_url
-      addChar.value = data.addChar
     }
   } catch (error) {
     alert(error.message)
@@ -50,13 +46,11 @@ async function updateProfile() {
     const updates = {
       id: user.id,
       username: username.value,
-      website: website.value,
-      addChar: addChar.value,
       avatar_url: avatar_url.value,
       updated_at: new Date()
     }
 
-    let { error } = await supabase.from('profiles').upsert(updates)
+    let { error } = await supabase.from('users').upsert(updates)
 
     if (error) throw error
   } catch (error) {
@@ -77,11 +71,6 @@ async function signOut() {
     loading.value = false
   }
 }
-
-// async function addChar() {
-//   try {
-//   } catch (error) {}
-// }
 </script>
 
 <template>
@@ -94,24 +83,6 @@ async function signOut() {
     <div>
       <label for="username">Name: </label>
       <input id="username" type="text" v-model="username" />
-    </div>
-    <div>
-      <label for="website">Website: </label>
-      <input id="website" type="url" v-model="website" />
-    </div>
-    <div>
-      <label for="addChar">Add Characters: </label>
-      <input id="addChar" type="text" v-model="addChar" />
-    </div>
-
-    <div>
-      <input
-        class="button thirdary block"
-        type="submit"
-        @click="addChar"
-        :value="loading ? 'Loading ...' : 'Choose Characters'"
-        :disabled="loading"
-      />
     </div>
 
     <div>
@@ -126,12 +97,8 @@ async function signOut() {
     <div>
       <button class="button block" @click="signOut" :disabled="loading">Sign Out</button>
     </div>
+    <RouterLink to="/store">Signed in Successfully! Click here to go to store.</RouterLink>
   </form>
-</template> -->
-<template>
-  <div></div>
 </template>
-
-<script setup></script>
 
 <style lang="scss" scoped></style>

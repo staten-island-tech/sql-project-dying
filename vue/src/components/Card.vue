@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="card">
     <h2 class="words">{{ name }}</h2>
     <h3 class="words">{{ vision }}</h3>
@@ -42,4 +42,11 @@ export default {
   width: 6.5rem;
   margin-bottom: 1rem;
 }
-</style>
+</style> -->
+<template>
+  <div></div>
+</template>
+
+<script setup></script>
+
+<style lang="scss" scoped></style>
