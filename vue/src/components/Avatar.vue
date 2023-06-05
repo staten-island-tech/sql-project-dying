@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { ref, toRefs, watch } from 'vue'
 import { supabase } from '../supabase'
 
@@ -75,5 +75,12 @@ watch(path, () => {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped></style> -->
+<template>
+  <div></div>
+</template>
+
+<script setup></script>
 
 <style lang="scss" scoped></style>

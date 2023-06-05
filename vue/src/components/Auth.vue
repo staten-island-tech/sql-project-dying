@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { ref } from 'vue'
 import { supabase } from '../supabase'
 
@@ -41,6 +41,13 @@ const handleLogin = async () => {
       </div>
     </div>
   </form>
+</template>
+
+<script setup></script>
+
+<style lang="scss" scoped></style> -->
+<template>
+  <div></div>
 </template>
 
 <script setup></script>

@@ -1,25 +1,50 @@
 <template>
-  <div>
-    <!-- <Account v-if="session" :session="session" />
-    <Auth v-else /> -->
+  <div class="home">
+    <h1>Honkai</h1>
+    <div class="buttons">
+      <router-link to="/login" class="router">Go to Login</router-link>
+      <button @click="checksession()" class="button">Check Session</button>
+    </div>
   </div>
 </template>
 
 <script setup>
-// import Account from './components/Account.vue'
-// import Auth from './components/Auth.vue'
+import { supabase } from '../supabase.js'
 
-// const session = ref()
-
-// onMounted(() => {
-//   supabase.auth.getSession().then(({ data }) => {
-//     session.value = data.session
-//   })
-
-//   supabase.auth.onAuthStateChange((_, _session) => {
-//     session.value = _session
-//   })
-// })
+async function checksession() {
+  const currentuser = await supabase.auth.getSession()
+  console.log(currentuser.data.session)
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+h1 {
+  font-size: 50px;
+}
+.home {
+  text-align: center;
+}
+.router {
+  color: white;
+  background-color: #adadad;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.router:hover {
+  background-color: #adaadd;
+}
+
+.button {
+  color: white;
+  background-color: #adadad;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #adaadd;
+}
+</style>
