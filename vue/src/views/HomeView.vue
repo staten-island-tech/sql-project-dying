@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { supabase } from '../supabase.js'
+import { supabase } from '../supa/supabase.js'
 
 async function checksession() {
   const currentuser = await supabase.auth.getSession()

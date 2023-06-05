@@ -1,4 +1,4 @@
-import { supabase } from '../src/supabase.js'
+import { supabase } from '../supa/supabase'
 import { createRouter, createWebHistory } from 'vue-router'
 import Store from '../views/Store.vue'
 import Login from '../views/login.vue'
