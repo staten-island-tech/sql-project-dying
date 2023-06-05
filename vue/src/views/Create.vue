@@ -1,0 +1,49 @@
+<template>
+  <div class="container">
+    <h2>Create Account</h2>
+    <div class="form">
+      <input type="email" placeholder="Email" v-model="email" />
+      <input type="password" placeholder="Password" v-model="password" />
+      <div class="buttons">
+        <button @click="signUp()" class="button">Sign up</button>
+        <button @click="checkSession()" class="button">Session</button>
+      </div>
+    </div>
+    <router-link to="/" class="router">Go back</router-link>
+  </div>
+</template>
+
+<script setup>
+import { SupabaseStore } from '../stores/counter.js'
+import { ref } from 'vue'
+
+const store = SupabaseStore()
+
+const email = ref('')
+const password = ref('')
+
+async function signUp() {
+  try {
+    await store.signUp(email.value, password.value)
+  } catch (error) {
+    console.log(error)
+  }
+}
+async function checkSession() {
+  try {
+    await store.checkSession()
+  } catch (error) {
+    console.log(error)
+  }
+}
+</script>
+
+<style scoped>
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+</style>
