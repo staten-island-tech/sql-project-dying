@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { supabase } from '../supa/supabase.js'
 
-export const useSupabaseStore = defineStore('supabase', {
+export const SupabaseStore = defineStore('supabase', {
   state: () => ({
     user: null,
     error: null

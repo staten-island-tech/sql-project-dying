@@ -24,6 +24,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <Auth v-else />
 
     <RouterView /> -->
+    <RouterView />
   </div>
 </template>
 
