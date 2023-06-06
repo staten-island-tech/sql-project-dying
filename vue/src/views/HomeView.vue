@@ -24,12 +24,22 @@ h1 {
 .home {
   text-align: center;
 }
+
+button {
+  color: white;
+  background-color: #adadad;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-right: 10px;
+}
 .router {
   color: white;
   background-color: #adadad;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
+  margin-right: 10px;
 }
 .router:hover {
   background-color: #adaadd;

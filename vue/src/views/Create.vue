@@ -39,6 +39,30 @@ async function checkSession() {
 </script>
 
 <style scoped>
+h2 {
+  font-size: 40px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-left: 15px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
 .signup-form {
   display: flex;
   flex-direction: column;
