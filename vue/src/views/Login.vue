@@ -55,13 +55,15 @@ async function checkSession() {
 </script>
 
 <style scoped>
+h2 {
+  font-size: 40px;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 .form {
   display: flex;
   flex-direction: column;
