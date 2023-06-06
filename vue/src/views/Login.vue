@@ -60,7 +60,11 @@ async function checkSession() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height:1000px;
+  width: 1750px;
   background-image: url(../assets/bg.png);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h2 {
