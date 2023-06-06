@@ -103,6 +103,8 @@ async function checkSession() {
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
+  margin-top: 10px;
+  height: 1rem;
 }
 .router:hover {
   background-color: #b0c7e4;
