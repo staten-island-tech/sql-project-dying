@@ -2,8 +2,10 @@
   <div class="container">
     <h2>Login</h2>
     <div class="form">
-      <input type="email" placeholder="Email" v-model="email" />
-      <input type="password" placeholder="Password" v-model="password" />
+      <div class="inputsForm">
+        <input type="email" placeholder="Email" v-model="email" />
+        <input type="password" placeholder="Password" v-model="password" />
+      </div>
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
         <button @click="logout()" class="button">Log out</button>
@@ -58,6 +60,11 @@ async function checkSession() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-image: url(../assets/bg.png);
+}
+
+h2 {
+  color: white;
 }
 
 .form {
@@ -66,8 +73,9 @@ async function checkSession() {
   align-items: center;
   padding: 20px;
   border: 2px solid #b0c7e4;
-  border-radius: 5px;
-  background-color: white;
+  border-radius: 10px;
+  background-color: #b0c7e4;
+  box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.603);
 }
 
 .form input {
@@ -79,14 +87,15 @@ async function checkSession() {
   border-radius: 5px;
 }
 
-.buttons {
+.buttons,
+.inputsForm {
   display: flex;
   justify-content: center;
 }
 
 .button {
   color: white;
-  background-color: #b0c7e4;
+  background-color: #96a5d5;
   padding: 10px 20px;
   margin: 10px;
   border: none;

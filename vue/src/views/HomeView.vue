@@ -26,10 +26,11 @@ h1 {
 }
 .router {
   color: white;
-  background-color: #adadad;
+  background-color: #b0c7e4;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
+  margin-right: 10px;
 }
 .router:hover {
   background-color: #adaadd;
@@ -37,11 +38,12 @@ h1 {
 
 .button {
   color: white;
-  background-color: #adadad;
+  background-color: #79d69b;
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
   text-decoration: none;
+  margin-left: 10px;
 }
 
 .button:hover {
