@@ -2,8 +2,10 @@
   <div class="container">
     <h2>Login</h2>
     <div class="form">
-      <input type="email" placeholder="Email" v-model="email" />
-      <input type="password" placeholder="Password" v-model="password" />
+      <div class="inputsForm">
+        <input type="email" placeholder="Email" v-model="email" />
+        <input type="password" placeholder="Password" v-model="password" />
+      </div>
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
         <button @click="logout()" class="button">Log out</button>
@@ -79,6 +81,11 @@ async function checkSession() {
   border-radius: 5px;
 }
 
+.inputsForm {
+  display: flex;
+  align-items: row;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
@@ -103,6 +110,7 @@ async function checkSession() {
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
+  margin-top: 20px;
 }
 .router:hover {
   background-color: #adaadd;
