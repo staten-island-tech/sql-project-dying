@@ -65,7 +65,7 @@ async function checkSession() {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border: 2px solid #adaadd;
+  border: 2px solid #b0c7e4;
   border-radius: 5px;
   background-color: white;
 }
@@ -75,7 +75,7 @@ async function checkSession() {
   height: 40px;
   margin: 10px;
   padding: 10px;
-  border: 1px solid #adaadd;
+  border: 1px solid #b0c7e4;
   border-radius: 5px;
 }
 
@@ -86,7 +86,7 @@ async function checkSession() {
 
 .button {
   color: white;
-  background-color: #adaadd;
+  background-color: #b0c7e4;
   padding: 10px 20px;
   margin: 10px;
   border: none;
@@ -103,8 +103,10 @@ async function checkSession() {
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
+  margin-top: 10px;
+  height: 1rem;
 }
 .router:hover {
-  background-color: #adaadd;
+  background-color: #b0c7e4;
 }
 </style>
