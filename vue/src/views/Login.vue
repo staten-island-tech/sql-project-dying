@@ -10,7 +10,7 @@
         <button @click="checkSession()" class="button">Session</button>
         <router-link to="/page" class="router">Go to Store</router-link>
       </div>
-      <router-link to="/signin">Create Account</router-link>
+      <router-link to="/createacc">Create Account</router-link>
     </div>
     <router-link to="/" class="router">Go back</router-link>
     <div id="error"></div>
