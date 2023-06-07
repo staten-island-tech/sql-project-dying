@@ -38,7 +38,7 @@ h1 {
 
 .button {
   color: white;
-  background-color: #79d69b;
+  background-color: #b0c7e4;
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
