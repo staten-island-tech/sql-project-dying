@@ -6,7 +6,6 @@
       <input type="password" placeholder="Password" v-model="password" />
       <div class="buttons">
         <button @click="signUp()" class="button">Sign up</button>
-        <button @click="checkSession()" class="button">Session</button>
       </div>
     </div>
     <router-link to="/" class="router">Go back</router-link>
@@ -25,13 +24,6 @@ const password = ref('')
 async function signUp() {
   try {
     await store.signUp(email.value, password.value)
-  } catch (error) {
-    console.log(error)
-  }
-}
-async function checkSession() {
-  try {
-    await store.checkSession()
   } catch (error) {
     console.log(error)
   }

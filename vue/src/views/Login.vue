@@ -9,7 +9,6 @@
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
         <button @click="logout()" class="button">Log out</button>
-        <button @click="checkSession()" class="button">Session</button>
         <router-link to="/page" class="router">Go to Store</router-link>
       </div>
       <router-link to="/createacc">Create Account</router-link>
@@ -40,14 +39,6 @@ async function login() {
 async function logout() {
   try {
     await store.logout()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-async function checkSession() {
-  try {
-    await store.checkSession()
   } catch (error) {
     console.log(error)
   }

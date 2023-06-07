@@ -3,18 +3,12 @@
     <h1>Honkai</h1>
     <div class="buttons">
       <router-link to="/login" class="router">Go to Login</router-link>
-      <button @click="checksession()" class="button">Check Session</button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { supabase } from '../supa/supabase.js'
-
-async function checksession() {
-  const currentuser = await supabase.auth.getSession()
-  console.log(currentuser.data.session)
-}
 </script>
 
 <style scoped>
