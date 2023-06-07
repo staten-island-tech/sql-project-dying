@@ -8,8 +8,8 @@
         <button @click="signUp()" class="button">Sign up</button>
         <button @click="checkSession()" class="button">Session</button>
       </div>
+      <router-link to="/" class="router">Go back</router-link>
     </div>
-    <router-link to="/" class="router">Go back</router-link>
   </div>
 </template>
 
@@ -39,6 +39,64 @@ async function checkSession() {
 </script>
 
 <style scoped>
+h2 {
+  font-size: 40px;
+  color: white;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height:1000px;
+  width: 1750px;
+  background-image: url(../assets/bg.png);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid #b0c7e4;
+  border-radius: 10px;
+  background-color: #b0c7e4;
+  box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.603);
+  height: 200px;
+}
+
+input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 250px;
+  height: 40px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #b0c7e4;
+  border-radius: 5px;
+}
+
+button {
+  margin-left: 15px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: #96a5d5;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #adadad;
+}
+
 .signup-form {
   display: flex;
   flex-direction: column;

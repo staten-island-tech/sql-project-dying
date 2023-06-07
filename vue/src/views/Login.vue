@@ -68,6 +68,7 @@ async function checkSession() {
 }
 
 h2 {
+  font-size: 40px;
   color: white;
 }
 
