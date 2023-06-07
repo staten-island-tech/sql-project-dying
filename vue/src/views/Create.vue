@@ -48,7 +48,7 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height:1000px;
+  height: 1000px;
   width: 1750px;
   background-image: url(../assets/bg.png);
   margin-left: auto;
@@ -60,7 +60,6 @@ h2 {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border: 2px solid #b0c7e4;
   border-radius: 10px;
   background-color: #b0c7e4;
   box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.603);
