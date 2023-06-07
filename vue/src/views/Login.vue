@@ -12,9 +12,9 @@
         <button @click="checkSession()" class="button">Session</button>
         <router-link to="/page" class="router">Go to Store</router-link>
       </div>
-      <router-link to="/createacc">Create Account</router-link>
+      <router-link id="create" to="/createacc">Create Account</router-link>
     </div>
-    <router-link to="/" class="router">Go back</router-link>
+    <router-link id="goBack" to="/" class="router">Return To Previous Page</router-link>
     <div id="error"></div>
   </div>
 </template>
@@ -59,17 +59,14 @@ async function checkSession() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height:1000px;
-  width: 1750px;
   background-image: url(../assets/bg.png);
-  margin-left: auto;
-  margin-right: auto;
+  height: 1000px;
 }
 
 h2 {
   font-size: 40px;
   color: white;
+  text-decoration: overline underline;
 }
 
 .form {
@@ -108,12 +105,12 @@ h2 {
 }
 
 .button:hover {
-  background-color: #adadad;
+  background-color: #7a98d0;
 }
 
 .router {
   color: white;
-  background-color: #adadad;
+  background-color: #7a98d0;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -121,6 +118,34 @@ h2 {
   height: 1rem;
 }
 .router:hover {
-  background-color: #b0c7e4;
+  background-color: #5c77d0;
+}
+
+#create {
+  color: #5c77d0;
+  font-weight: 900;
+  margin-top: 10px;
+  height: 1rem;
+}
+#create:hover {
+  color: #0da3de;
+}
+
+#goBack {
+  margin-top: 20px;
+  border-color: #0da3de;
+  color: #0da3de;
+  background-color: transparent;
+  border-radius: 0px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  box-shadow: 0 1px 3px rgb(0, 0, 0), 0 1px 2px rgb(0, 0, 0);
+}
+#goBack:hover {
+  background-color: #96a5d5;
+  color: white;
+  right: 0px;
+  text-decoration: underline;
 }
 </style>
+<!-- https://codepen.io/CINDY-TANG/pen/vYQYVdq -->
