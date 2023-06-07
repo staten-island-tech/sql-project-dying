@@ -13,10 +13,11 @@
 </template>
 
 <script setup>
-import { SupabaseStore } from '../stores/counter.js'
+import { useSupabaseStore } from '../stores/counter.js'
 import { ref } from 'vue'
+import { supabase } from '../supa/supabase.js'
 
-const store = SupabaseStore()
+const store = useSupabaseStore()
 
 const email = ref('')
 const password = ref('')
@@ -24,6 +25,11 @@ const password = ref('')
 async function signUp() {
   try {
     await store.signUp(email.value, password.value)
+    let {
+      data: { users }
+    } = await supabase.auth.getUser()
+
+    await supabase.from('users').insert([{ user_id: users.id, email: email }])
   } catch (error) {
     console.log(error)
   }

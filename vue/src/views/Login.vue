@@ -19,10 +19,10 @@
 </template>
 
 <script setup>
-import { SupabaseStore } from '../stores/counter.js'
+import { useSupabaseStore } from '../stores/counter.js'
 import { ref } from 'vue'
 
-const store = SupabaseStore()
+const store = useSupabaseStore()
 const error = ref('')
 const email = ref('')
 const password = ref('')
@@ -39,6 +39,14 @@ async function login() {
 async function logout() {
   try {
     await store.logout()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function checkSession() {
+  try {
+    await store.checkSession()
   } catch (error) {
     console.log(error)
   }

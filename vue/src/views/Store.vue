@@ -1,8 +1,8 @@
 <script setup>
 import { supabase } from '../lib/supabaseClient.js'
 import { ref, onMounted } from 'vue'
-import { SupabaseStore } from '../stores/counter'
-const store = SupabaseStore()
+import { useSupabaseStore } from '../stores/counter'
+const store = useSupabaseStore()
 async function getCards() {
   const { data } = await supabase.from('characters').select()
   store.characters = data
