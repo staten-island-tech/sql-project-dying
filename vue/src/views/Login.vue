@@ -11,7 +11,6 @@
             <input class="user-box-input" type="password" required>
             <label class="user-box-label">Password</label>
         </div>
-    
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
         <button @click="logout()" class="button">Log out</button>
@@ -74,6 +73,7 @@ h2 {
   font-size: 40px;
   color: white;
   text-decoration: overline underline;
+  margin-top: 95px;
 }
 
 .form input {
@@ -94,7 +94,7 @@ h2 {
   background-color: #1e3a5c76;
   box-shadow: 0px 15px 20px 0px rgb(0, 0, 0);
   position: absolute;
-  top: 42%;
+  top: 50%;
   left: 50%;
   width: 450px;
   padding: 30px;
