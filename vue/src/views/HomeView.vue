@@ -13,23 +13,28 @@ import { supabase } from '../supa/supabase.js'
 
 <style scoped>
 h1 {
-  font-size: 50px;
+  font-size: 80px;
+  color: rgb(198, 225, 252);
+  margin-top: 0px;
+  margin-bottom: 20px;
+  margin-top: 250px;
 }
 .home {
   text-align: center;
+  background-image: url(../assets/bg.png);
+  height: 1000px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-button {
-  color: white;
-  background-color: #adadad;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  margin-right: 10px;
+.router, .button {
+  font-size: 15px;
 }
+
 .router {
   color: white;
-  background-color: #b0c7e4;
+  background-color: #83bbffcd;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -41,7 +46,7 @@ button {
 
 .button {
   color: white;
-  background-color: #b0c7e4;
+  background-color: #83bbffcd;
   padding: 10px 20px;
   border-radius: 5px;
   border: none;

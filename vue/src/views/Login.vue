@@ -11,7 +11,6 @@
             <input class="user-box-input" type="password" required>
             <label class="user-box-label">Password</label>
         </div>
-    
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
         <button @click="logout()" class="button">Log out</button>
@@ -20,7 +19,7 @@
       <router-link id="create" to="/createacc">Create Account</router-link>
     </div>
   </div>
-    <router-link id="goBack" to="/" class="router">Return To Previous Page</router-link>
+    <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
     <div id="error"></div>
 </div>
 </template>
@@ -76,20 +75,12 @@ h2 {
   font-size: 40px;
   color: white;
   text-decoration: overline underline;
-}
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px solid #1e3a5c76;
-  border-radius: 10px;
-  background-color: #1e3a5c76;
-  box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.603);
+  margin-top: 95px;
 }
 
 .form input {
   width: 250px;
-  height: 40px;
+  height: 20px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #b0c7e4;
@@ -103,21 +94,17 @@ h2 {
   border: 2px solid #1e3a5c76;
   border-radius: 10px;
   background-color: #1e3a5c76;
-  box-shadow: 0px 20px 20px 0px rgb(0, 0, 0);
+  box-shadow: 0px 15px 20px 0px rgb(0, 0, 0);
   position: absolute;
   top: 50%;
   left: 50%;
   width: 450px;
   padding: 30px;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
 }
-
-
 .user-box {
     position: relative;
 }
-
 .user-box-input {
     width: 100%;
     padding: 10px 0;
@@ -129,10 +116,9 @@ h2 {
     outline: none;
     background: transparent;
 }
-
 .user-box-label {
     position: absolute;
-    top: 25px;
+    top: 13px;
     left: 20px;
     padding: 10px 0;
     font-size: 15px;
@@ -140,7 +126,6 @@ h2 {
     pointer-events: none;
     transition: 0.5s;
 }
-
 .login-box .user-box input:focus~label,
 .login-box .user-box input:valid~label {
     top: -20px;
@@ -191,7 +176,7 @@ h2 {
 }
 
 #goBack {
-  margin-top: 350px;
+  margin-top: 280px;
   border-color: #0da3de;
   color: #0da3de;
   background-color: #1e3a5c76;
@@ -207,4 +192,3 @@ h2 {
   text-decoration: underline;
 }
 </style>
-<!-- https://codepen.io/CINDY-TANG/pen/vYQYVdq -->
