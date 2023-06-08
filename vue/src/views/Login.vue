@@ -1,11 +1,17 @@
 <template>
   <div class="container">
     <h2>Login</h2>
-    <div class="form">
-      <div class="inputsForm">
-        <input type="email" placeholder="Email" v-model="email" />
-        <input type="password" placeholder="Password" v-model="password" />
-      </div>
+<div class="form">
+    <div class="login-box">
+        <div class="user-box">
+            <input class="user-box-input" type="text" required>
+            <label class="user-box-label">Email</label>
+        </div>
+        <div class="user-box">
+            <input class="user-box-input" type="password" required>
+            <label class="user-box-label">Password</label>
+        </div>
+    
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
         <button @click="logout()" class="button">Log out</button>
@@ -14,9 +20,10 @@
       </div>
       <router-link id="create" to="/createacc">Create Account</router-link>
     </div>
+  </div>
     <router-link id="goBack" to="/" class="router">Return To Previous Page</router-link>
     <div id="error"></div>
-  </div>
+</div>
 </template>
 
 <script setup>
@@ -73,10 +80,9 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  border: 2px solid #b0c7e4;
+  border: 2px solid #1e3a5c76;
   border-radius: 10px;
-  background-color: #b0c7e4;
+  background-color: #1e3a5c76;
   box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.603);
 }
 
@@ -89,8 +95,60 @@ h2 {
   border-radius: 5px;
 }
 
-.buttons,
-.inputsForm {
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #1e3a5c76;
+  border-radius: 10px;
+  background-color: #1e3a5c76;
+  box-shadow: 0px 20px 20px 0px rgb(0, 0, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  padding: 30px;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+
+.user-box {
+    position: relative;
+}
+
+.user-box-input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.user-box-label {
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.login-box .user-box input:focus~label,
+.login-box .user-box input:valid~label {
+    top: -20px;
+    left: 0;
+    color: #8ab0df;
+    font-size: 12px;
+}
+
+.buttons {
   display: flex;
   justify-content: center;
 }
@@ -132,17 +190,17 @@ h2 {
 }
 
 #goBack {
-  margin-top: 20px;
+  margin-top: 350px;
   border-color: #0da3de;
   color: #0da3de;
-  background-color: transparent;
+  background-color: #1e3a5c76;
   border-radius: 0px;
   font-weight: 900;
   letter-spacing: 1px;
   box-shadow: 0 1px 3px rgb(0, 0, 0), 0 1px 2px rgb(0, 0, 0);
 }
 #goBack:hover {
-  background-color: #96a5d5;
+  background-color: #1e3a5c;
   color: white;
   right: 0px;
   text-decoration: underline;
