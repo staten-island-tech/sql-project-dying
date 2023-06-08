@@ -76,19 +76,9 @@ h2 {
   text-decoration: overline underline;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px solid #1e3a5c76;
-  border-radius: 10px;
-  background-color: #1e3a5c76;
-  box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.603);
-}
-
 .form input {
   width: 250px;
-  height: 40px;
+  height: 20px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #b0c7e4;
@@ -102,16 +92,14 @@ h2 {
   border: 2px solid #1e3a5c76;
   border-radius: 10px;
   background-color: #1e3a5c76;
-  box-shadow: 0px 20px 20px 0px rgb(0, 0, 0);
+  box-shadow: 0px 15px 20px 0px rgb(0, 0, 0);
   position: absolute;
   top: 50%;
   left: 50%;
   width: 450px;
   padding: 30px;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
 }
-
 
 .user-box {
     position: relative;
@@ -131,7 +119,7 @@ h2 {
 
 .user-box-label {
     position: absolute;
-    top: 25px;
+    top: 13px;
     left: 20px;
     padding: 10px 0;
     font-size: 15px;
