@@ -15,9 +15,9 @@
         <button @click="signUp()" class="button">Sign up</button>
         <button @click="checkSession()" class="button">Session</button>
       </div>
-    </div>
     <router-link id="goBack" to="/" class="router">Return To Previous Page</router-link>
     </div>
+  </div>
   </div>
 </template>
 
@@ -47,21 +47,32 @@ async function checkSession() {
 </script>
 
 <style scoped>
-h2 {
-  font-size: 40px;
-  color: white;
-}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 1000px;
   background-image: url(../assets/bg.png);
-  margin-left: auto;
-  margin-right: auto;
+  height: 1000px;
 }
 
-.form {
+h2 {
+  font-size: 40px;
+  color: white;
+  text-decoration: overline underline;
+  margin-top: 95px;
+}
+
+.form input {
+  width: 250px;
+  height: 20px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #b0c7e4;
+  border-radius: 5px;
+}
+
+.login-box {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,48 +84,9 @@ h2 {
   top: 50%;
   left: 50%;
   width: 450px;
-  padding: 30px;
+  padding: 20px;
   transform: translate(-50%, -50%);
 }
-
-input {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 250px;
-  height: 40px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #b0c7e4;
-  border-radius: 5px;
-}
-
-button {
-  margin-left: 15px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  color: white;
-  background-color: #96a5d5;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-}
-
-.button:hover {
-  background-color: #adadad;
-}
-
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
 .user-box {
     position: relative;
 }
@@ -178,18 +150,7 @@ button {
   background-color: #5c77d0;
 }
 
-#create {
-  color: #5c77d0;
-  font-weight: 900;
-  margin-top: 10px;
-  height: 1rem;
-}
-#create:hover {
-  color: #0da3de;
-}
-
 #goBack {
-  margin-top: 280px;
   border-color: #0da3de;
   color: #0da3de;
   background-color: #1e3a5c76;
