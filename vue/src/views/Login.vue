@@ -94,7 +94,7 @@ h2 {
   background-color: #1e3a5c76;
   box-shadow: 0px 15px 20px 0px rgb(0, 0, 0);
   position: absolute;
-  top: 50%;
+  top: 42%;
   left: 50%;
   width: 450px;
   padding: 30px;
@@ -174,7 +174,7 @@ h2 {
 }
 
 #goBack {
-  margin-top: 350px;
+  margin-top: 280px;
   border-color: #0da3de;
   color: #0da3de;
   background-color: #1e3a5c76;
