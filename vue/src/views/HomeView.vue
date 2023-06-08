@@ -23,13 +23,13 @@ h1 {
   color: rgb(198, 225, 252);
   margin-top: 0px;
   margin-bottom: 20px;
+  margin-top: 250px;
 }
 .home {
   text-align: center;
   background-image: url(../assets/bg.png);
   height: 1000px;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
