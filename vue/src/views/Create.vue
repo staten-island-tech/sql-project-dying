@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>Create Account</h2>
+    <h1>Create Account</h1>
     <div class="form">
       <div class="login-box">
         <div class="user-box">
@@ -55,7 +55,7 @@ async function signUp() {
   height: 1000px;
 }
 
-h2 {
+h1 {
   font-size: 40px;
   color: white;
   text-decoration: overline underline;
@@ -79,7 +79,7 @@ h2 {
   border-radius: 10px;
   background-color: #1e3a5c76;
   box-shadow: 0px 15px 20px 0px rgb(0, 0, 0);
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   width: 450px;
