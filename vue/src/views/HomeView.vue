@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Honkai</h1>
+    <h1>Honkai: Star Rail</h1>
     <div class="buttons">
       <router-link to="/login" class="router">Go to Login</router-link>
     </div>
@@ -27,11 +27,6 @@ h1 {
   align-items: center;
   flex-direction: column;
 }
-
-.router, .button {
-  font-size: 15px;
-}
-
 .router {
   color: white;
   background-color: #83bbffcd;
@@ -39,22 +34,9 @@ h1 {
   border-radius: 5px;
   text-decoration: none;
   margin-right: 10px;
+  font-size: 20px;
 }
 .router:hover {
-  background-color: #adaadd;
-}
-
-.button {
-  color: white;
-  background-color: #83bbffcd;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  text-decoration: none;
-  margin-left: 10px;
-}
-
-.button:hover {
   background-color: #adaadd;
 }
 </style>
