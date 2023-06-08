@@ -21,29 +21,13 @@ const routes = [
   },
   {
     path: '/store',
-    component: Store,
-    meta: { requiresAuth: true }
+    component: Store
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes: routes
-})
-async function getUser(next) {
-  localUser = await supabase.auth.getSession()
-  if (localUser.data.session == null) {
-    next('/error')
-  } else {
-    next()
-  }
-}
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    getUser(next)
-  } else {
-    next()
-  }
 })
 
 export default router

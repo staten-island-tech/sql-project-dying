@@ -14,7 +14,6 @@
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
         <button @click="logout()" class="button">Log out</button>
-        <button @click="checkSession()" class="button">Session</button>
         <router-link to="/page" class="router">Go to Store</router-link>
       </div>
       <router-link id="create" to="/createacc">Create Account</router-link>
@@ -26,10 +25,10 @@
 </template>
 
 <script setup>
-import { SupabaseStore } from '../stores/counter.js'
+import { useSupabaseStore } from '../stores/counter.js'
 import { ref } from 'vue'
 
-const store = SupabaseStore()
+const store = useSupabaseStore()
 const error = ref('')
 const email = ref('')
 const password = ref('')
@@ -61,6 +60,9 @@ async function checkSession() {
 </script>
 
 <style scoped>
+h2 {
+  font-size: 40px;
+}
 .container {
   display: flex;
   flex-direction: column;

@@ -13,7 +13,6 @@
         </div>
       <div class="buttons">
         <button @click="signUp()" class="button">Sign up</button>
-        <button @click="checkSession()" class="button">Session</button>
       </div>
     <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
     </div>
@@ -22,10 +21,11 @@
 </template>
 
 <script setup>
-import { SupabaseStore } from '../stores/counter.js'
+import { useSupabaseStore } from '../stores/counter.js'
 import { ref } from 'vue'
+import { supabase } from '../supa/supabase.js'
 
-const store = SupabaseStore()
+const store = useSupabaseStore()
 
 const email = ref('')
 const password = ref('')
@@ -33,13 +33,11 @@ const password = ref('')
 async function signUp() {
   try {
     await store.signUp(email.value, password.value)
-  } catch (error) {
-    console.log(error)
-  }
-}
-async function checkSession() {
-  try {
-    await store.checkSession()
+    let {
+      data: { users }
+    } = await supabase.auth.getUser()
+
+    await supabase.from('users').insert([{ user_id: users.id, email: email }])
   } catch (error) {
     console.log(error)
   }
