@@ -2,42 +2,44 @@
   <div class="container">
     <h2>Create Account</h2>
     <div class="form">
-    <div class="login-box">
-      <div class="user-box">
-            <input class="user-box-input" type="text" required>
-            <label class="user-box-label">Email</label>
+      <div class="login-box">
+        <div class="user-box">
+          <input class="user-box-input" type="text" required />
+          <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-            <input class="user-box-input" type="password" required>
-            <label class="user-box-label">Password</label>
+          <input class="user-box-input" type="password" required />
+          <label class="user-box-label">Password</label>
         </div>
-      <div class="buttons">
-        <button @click="signUp()" class="button">Sign up</button>
+        <div class="buttons">
+          <button @click="signUp()" class="button">Sign up</button>
+        </div>
+        <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
       </div>
-    <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
     </div>
-  </div>
   </div>
 </template>
 
 <script setup>
-import { useSupabaseStore } from '../stores/counter.js'
 import { ref } from 'vue'
 import { supabase } from '../supa/supabase.js'
-
-const store = useSupabaseStore()
 
 const email = ref('')
 const password = ref('')
 
 async function signUp() {
   try {
-    await store.signUp(email.value, password.value)
-    let {
-      data: { users }
-    } = await supabase.auth.getUser()
-
-    await supabase.from('users').insert([{ user_id: users.id, email: email }])
+    const { user, error } = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value
+    })
+    if (error) {
+      console.error(error)
+    } else {
+      console.log(user)
+      email.value = ''
+      password.value = ''
+    }
   } catch (error) {
     console.log(error)
   }
@@ -45,7 +47,6 @@ async function signUp() {
 </script>
 
 <style scoped>
-
 .container {
   display: flex;
   flex-direction: column;
@@ -86,35 +87,35 @@ h2 {
   transform: translate(-50%, -50%);
 }
 .user-box {
-    position: relative;
+  position: relative;
 }
 .user-box-input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
 }
 .user-box-label {
-    position: absolute;
-    top: 13px;
-    left: 20px;
-    padding: 10px 0;
-    font-size: 15px;
-    color: #fff;
-    pointer-events: none;
-    transition: 0.5s;
+  position: absolute;
+  top: 13px;
+  left: 20px;
+  padding: 10px 0;
+  font-size: 15px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
 }
-.login-box .user-box input:focus~label,
-.login-box .user-box input:valid~label {
-    top: -20px;
-    left: 0;
-    color: #8ab0df;
-    font-size: 12px;
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #8ab0df;
+  font-size: 12px;
 }
 
 .buttons {

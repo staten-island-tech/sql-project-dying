@@ -4,16 +4,16 @@ import { ref, onMounted } from 'vue'
 import { useSupabaseStore } from '../stores/counter'
 const store = useSupabaseStore()
 async function getCards() {
-  const { data } = await supabase.from('characters').select()
+  const { data } = await supabase.from('character').select()
   store.characters = data
 }
 
 async function AddCart(x) {
   store.cartTotal = store.cartTotal + x
 }
-getCard()
+getCards()
 console.log(store.characters)
-getCard()
+getCards()
 </script>
 
 <template>
@@ -38,18 +38,17 @@ getCard()
 
     <div class="window">
       <h1>${{ store.cartTotal }}</h1>
-      <div class="li"><RouterLink to="/CartView">View Cart</RouterLink></div>
       <div class="line"></div>
     </div>
 
     <div class="display">
-      <div v-for="haru in store.harus">
-        <div class="display-card"><img class="display-img" v-bind:src="haru.image" /></div>
+      <div v-for="character in store.characters">
+        <div class="display-card"><img class="display-img" v-bind:src="character.images" /></div>
 
         <div class="description">
-          <h3 class="display-title">{{ haru.name }}</h3>
-          <h4 class="display-price">${{ haru.price }}</h4>
-          <button class="btn" @click="AddCart(haru.price)">ADD TO CART</button>
+          <h3 class="display-title">{{ character.names }}</h3>
+          <h4 class="display-price">${{ character.prices }}</h4>
+          <button class="btn" @click="AddCart(character.prices)">ADD TO CART</button>
         </div>
       </div>
     </div>

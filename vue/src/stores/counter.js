@@ -1,60 +1,12 @@
 import { defineStore } from 'pinia'
-import { supabase } from '../supa/supabase.js'
+import { ref, onMounted } from 'vue'
 
-export const useSupabaseStore = defineStore('supabase', {
-  state: () => ({
-    user: null,
-    error: null
-  }),
-  actions: {
-    async signUp(email, password) {
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password
-        })
-        if (error) {
-          console.log(error)
-        } else {
-          this.user = data
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    },
+export const useSupabaseStore = defineStore('supabase', () => {
+  let cartTotal = ref(0)
 
-    async login(email, password) {
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        })
-        if (error) {
-          console.log(error)
-        } else {
-          this.user = data
-          this.userId = data.id
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    async checkSession() {
-      const currentuser = await supabase.auth.getSession()
-      console.log(currentuser.data.session)
-    },
-
-    async logout() {
-      try {
-        const { error } = await supabase.auth.signOut()
-        if (error) {
-          console.log(error)
-        } else {
-          this.user = null
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
+  let characters = ref([])
+  return {
+    characters,
+    cartTotal
   }
 })

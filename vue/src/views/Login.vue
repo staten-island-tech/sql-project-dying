@@ -1,58 +1,62 @@
 <template>
   <div class="container">
     <h2>Login</h2>
-<div class="form">
-    <div class="login-box">
+    <div class="form">
+      <div class="login-box">
         <div class="user-box">
-            <input class="user-box-input" type="text" required>
-            <label class="user-box-label">Email</label>
+          <input class="user-box-input" type="text" required />
+          <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-            <input class="user-box-input" type="password" required>
-            <label class="user-box-label">Password</label>
+          <input class="user-box-input" type="password" required />
+          <label class="user-box-label">Password</label>
         </div>
-      <div class="buttons">
-        <button @click="login()" class="button">Login</button>
-        <button @click="logout()" class="button">Log out</button>
-        <router-link to="/page" class="router">Go to Store</router-link>
+        <div class="buttons">
+          <button @click="login()" class="button">Login</button>
+          <button @click="logout()" class="button">Log out</button>
+          <router-link to="/store" class="router">Go to Store</router-link>
+        </div>
+        <router-link id="create" to="/createacc">Create Account</router-link>
       </div>
-      <router-link id="create" to="/createacc">Create Account</router-link>
     </div>
-  </div>
     <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
     <div id="error"></div>
-</div>
+  </div>
 </template>
 
 <script setup>
-import { useSupabaseStore } from '../stores/counter.js'
 import { ref } from 'vue'
+import { supabase } from '../lib/supabaseClient.js'
 
-const store = useSupabaseStore()
-const error = ref('')
 const email = ref('')
 const password = ref('')
 
 async function login() {
   try {
-    await store.login(email.value, password.value)
+    const { user, error } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value
+    })
+    if (error) {
+      console.error(error)
+    } else {
+      console.error(user)
+      email.value = ''
+      password.value = ''
+    }
   } catch (error) {
     console.log(error)
-    document.getElementById('error').innerHTML = error
   }
 }
 
 async function logout() {
   try {
-    await store.logout()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-async function checkSession() {
-  try {
-    await store.checkSession()
+    const { error } = await supabase.auth.signOut()
+    if (error) {
+      console.log(error)
+    } else {
+      this.user = null
+    }
   } catch (error) {
     console.log(error)
   }
@@ -103,35 +107,35 @@ h2 {
   transform: translate(-50%, -50%);
 }
 .user-box {
-    position: relative;
+  position: relative;
 }
 .user-box-input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
 }
 .user-box-label {
-    position: absolute;
-    top: 13px;
-    left: 20px;
-    padding: 10px 0;
-    font-size: 15px;
-    color: #fff;
-    pointer-events: none;
-    transition: 0.5s;
+  position: absolute;
+  top: 13px;
+  left: 20px;
+  padding: 10px 0;
+  font-size: 15px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
 }
-.login-box .user-box input:focus~label,
-.login-box .user-box input:valid~label {
-    top: -20px;
-    left: 0;
-    color: #8ab0df;
-    font-size: 12px;
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #8ab0df;
+  font-size: 12px;
 }
 
 .buttons {
