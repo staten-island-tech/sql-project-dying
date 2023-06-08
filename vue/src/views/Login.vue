@@ -1,15 +1,15 @@
 <template>
-  <div class="container">
-    <h2>Login</h2>
+  <div role="main" class="container">
+    <h1>Login</h1>
 <div class="form">
     <div class="login-box">
         <div class="user-box">
-            <input class="user-box-input" type="text" required>
-            <label class="user-box-label">Email</label>
+            <input class="user-box-input" id="email" aria-label="email" type="text" required>
+            <label class="user-box-label" for="email">Email</label>
         </div>
         <div class="user-box">
-            <input class="user-box-input" type="password" required>
-            <label class="user-box-label">Password</label>
+            <input class="user-box-input" id="password" aria-label="password" type="password" required>
+            <label class="user-box-label" for="password">Password</label>
         </div>
       <div class="buttons">
         <button @click="login()" class="button">Login</button>
@@ -52,9 +52,6 @@ async function logout() {
 </script>
 
 <style scoped>
-h2 {
-  font-size: 40px;
-}
 .container {
   display: flex;
   flex-direction: column;
@@ -63,11 +60,12 @@ h2 {
   height: 1000px;
 }
 
-h2 {
+h1 {
   font-size: 40px;
   color: white;
   text-decoration: overline underline;
   margin-top: 95px;
+  background-color: #191b29;
 }
 
 .form input {
@@ -133,7 +131,7 @@ h2 {
 
 .button {
   color: white;
-  background-color: #96a5d5;
+  background-color: #345593;
   padding: 10px 20px;
   margin: 10px;
   border: none;
@@ -146,7 +144,7 @@ h2 {
 
 .router {
   color: white;
-  background-color: #7a98d0;
+  background-color: #1C3A63;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
