@@ -49,14 +49,6 @@ async function logout() {
     console.log(error)
   }
 }
-
-async function checkSession() {
-  try {
-    await store.checkSession()
-  } catch (error) {
-    console.log(error)
-  }
-}
 </script>
 
 <style scoped>
