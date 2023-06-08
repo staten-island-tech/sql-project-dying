@@ -20,7 +20,7 @@
       <router-link id="create" to="/createacc">Create Account</router-link>
     </div>
   </div>
-    <router-link id="goBack" to="/" class="router">Return To Previous Page</router-link>
+    <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
     <div id="error"></div>
 </div>
 </template>

@@ -15,7 +15,7 @@
         <button @click="signUp()" class="button">Sign up</button>
         <button @click="checkSession()" class="button">Session</button>
       </div>
-    <router-link id="goBack" to="/" class="router">Return To Previous Page</router-link>
+    <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
     </div>
   </div>
   </div>
