@@ -29,7 +29,7 @@ button {
 }
 .router {
   color: white;
-  background-color: #adadad;
+  background-color: #b0c7e4;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -41,11 +41,12 @@ button {
 
 .button {
   color: white;
-  background-color: #adadad;
+  background-color: #b0c7e4;
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
   text-decoration: none;
+  margin-left: 10px;
 }
 
 .button:hover {
