@@ -100,11 +100,9 @@ h2 {
   padding: 30px;
   transform: translate(-50%, -50%);
 }
-
 .user-box {
     position: relative;
 }
-
 .user-box-input {
     width: 100%;
     padding: 10px 0;
@@ -116,7 +114,6 @@ h2 {
     outline: none;
     background: transparent;
 }
-
 .user-box-label {
     position: absolute;
     top: 13px;
@@ -127,7 +124,6 @@ h2 {
     pointer-events: none;
     transition: 0.5s;
 }
-
 .login-box .user-box input:focus~label,
 .login-box .user-box input:valid~label {
     top: -20px;
