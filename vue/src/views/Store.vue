@@ -21,7 +21,7 @@ getCards()
     <header>
       <div class="container">
         <div class="logo">
-          <h1>Honkai</h1>
+          <h1>Honkai Card Store</h1>
         </div>
 
         <div class="li">
@@ -65,6 +65,9 @@ getCards()
   align-items: center;
   font-family: 'Nunito', sans-serif;
 }
+h1 {
+  font-size: 50px;
+}
 .window {
   padding: 5rem;
   display: flex;
@@ -85,14 +88,13 @@ getCards()
   margin: auto;
   box-sizing: border-box;
   align-items: center;
-  background-color: #56565636;
-  border-radius: 30px;
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
+  background-color: rgb(31, 30, 77);
 }
 
 .btn {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   background-color: #ffffff;
   color: #000000;
@@ -180,14 +182,15 @@ getCards()
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  border-radius: 20px;
   padding: 2rem;
   justify-content: space-around;
   font-weight: bold;
   align-items: center;
   justify-content: center;
+  color: white;
 }
 .display-img {
+  background-color: white;
   width: 21rem;
   height: 30rem;
   justify-content: space-around;
@@ -203,6 +206,7 @@ getCards()
 }
 
 .display-img:hover {
+  background-color: white;
   transform: translateY(-0.5rem);
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
 }
