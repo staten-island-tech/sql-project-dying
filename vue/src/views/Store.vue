@@ -213,7 +213,7 @@ h2 {
   color: white;
 }
 .display-img {
-  background-color: #1e3a5c76;
+  background-color: transparent;
   width: 21rem;
   height: 30rem;
   justify-content: space-around;
