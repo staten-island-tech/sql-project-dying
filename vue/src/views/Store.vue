@@ -18,14 +18,14 @@ getCards()
 
 <template>
   <div>
-    <section class="absHeader"></section>
-    
     <header>
       <div class="container">
         <div class="logo">
-          <h1>Welcome to the Honkai: Star Rail Character Store!</h1>
         </div>
-
+        <h1>Welcome to the Honkai: Star Rail Character Store!</h1>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Diphylleia&family=Reggae+One&display=swap" rel="stylesheet">
         <div class="li">
           <nav class="routers">
             <RouterLink to="/login">Login</RouterLink>
@@ -60,10 +60,12 @@ getCards()
 </template>
 
 <style scoped>
-.absHeader {
-  background-image: url(https://gamingonphone.com/wp-content/uploads/2023/05/Honkai-star-rail-Astral-Express-train.jpg);
+.logo {
+  background-image: url(https://upload.wikimedia.org/wikipedia/en/b/b1/Honkai-Star-Rail.png);
   background-position: center;
-  height: 60vh;
+  align-items: center;
+  width: 20rem;
+  height: 10rem;
 }
 
 .container {
@@ -73,9 +75,6 @@ getCards()
   justify-content: space-evenly;
   align-items: center;
   font-family: 'Nunito', sans-serif;
-}
-h1 {
-  font-size: 50px;
 }
 .window {
   display: flex;
@@ -106,7 +105,12 @@ h1 {
   font-family: 'Nunito', sans-serif;
   background-color: rgb(31, 30, 77);
 }
-
+h1 {
+  color: rgb(31, 30, 77);
+  font-size: 50px;
+  width: 85rem;
+  font-family: 'Reggae One', cursive;
+}
 h2 {
   color: white;
 }
@@ -119,7 +123,6 @@ h2 {
   font-style: bold;
   border: none;
   border-radius: 30px;
-  font-family: 'Nunito', sans-serif;
 }
 
 .btn:hover {
@@ -222,9 +225,9 @@ h2 {
   font-size: 20px;
 }
 .display-img {
-  background-color: transparent;
-  width: 33rem;
-  height: 35rem;
+  background-color: white;
+  width: 30rem;
+  height: 30rem;
   justify-content: space-around;
   transition: all 0.5s;
   display: block;
@@ -233,16 +236,17 @@ h2 {
 }
 
 .display-img:hover {
-  background-color: #1e3a5c92;
   transform: translateY(-0.5rem);
   box-shadow: 0 8px 16px 0 rgba(3, 6, 53, 0.715), 0 12px 40px 0 rgba(3, 6, 53, 0.715);
 }
 
 .display-title, .display-price {
   color: rgba(196, 223, 250, 0.928);
+  font-family: 'Diphylleia', serif;
 }
 
 .display-title {
+  font-size: 2rem;
   text-decoration: underline;
 }
 </style>
