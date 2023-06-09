@@ -215,7 +215,7 @@ h2 {
   border-radius: 30px;
   margin-top: 30px;
   margin-bottom: 30px;
-  background-color: #1e3a5c76;
+  background-color: #1e3a5ccc;
 }
 
 .display-card,
