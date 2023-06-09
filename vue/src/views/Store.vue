@@ -74,29 +74,9 @@ getCards()
   align-items: center;
   font-family: 'Nunito', sans-serif;
 }
-
-.body {
-  background-color: #121849d8;
-  color: white;
-  border-radius: 30px;
-  width: 90vw;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 h1 {
-  font-size: 40px;
-  text-decoration: underline overline;
+  font-size: 50px;
 }
-
-.routers {
-  padding: 0px;
-  width: 98.5vw;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
 .window {
   display: flex;
   flex-direction: column;
@@ -115,14 +95,13 @@ h1 {
   margin: auto;
   box-sizing: border-box;
   align-items: center;
-  background-color: #1e3a5c76;
-  border-radius: 30px;
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
+  background-color: rgb(31, 30, 77);
 }
 
 .btn {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   background-color: #ffffff;
   color: #000000;
@@ -222,15 +201,17 @@ h1 {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 0.7rem;
+  padding: 2rem;
   justify-content: space-around;
   font-weight: bold;
   align-items: center;
   justify-content: center;
+  color: white;
 }
 .display-img {
-  width: 24rem;
-  height: 25rem;
+  background-color: #1e3a5c76;
+  width: 21rem;
+  height: 30rem;
   justify-content: space-around;
   transition: all 0.5s;
   display: block;
@@ -239,6 +220,7 @@ h1 {
 }
 
 .display-img:hover {
+  background-color: #1e3a5c92;
   transform: translateY(-0.5rem);
   box-shadow: 0 8px 16px 0 rgba(3, 6, 53, 0.715), 0 12px 40px 0 rgba(3, 6, 53, 0.715);
 }
