@@ -1,7 +1,7 @@
 import { supabase } from '../supa/supabase'
 import { createRouter, createWebHistory } from 'vue-router'
 import Store from '../views/Store.vue'
-import Login from '../views/login.vue'
+import Login from '../views/Login.vue'
 import HomeView from '../views/HomeView.vue'
 import CreateAcc from '../views/Create.vue'
 
