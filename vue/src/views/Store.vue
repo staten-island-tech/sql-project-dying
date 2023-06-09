@@ -144,11 +144,10 @@ h2 {
 .line {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 120rem;
+  width: 110rem;
   height: 6px;
   align-content: center;
 }
-
 .line2 {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
