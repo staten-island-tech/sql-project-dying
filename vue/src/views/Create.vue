@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Create Account</h1>
-    <div class="form">
+    <form @submit.prevent="signUp" autocomplete="on">
       <div class="login-box">
         <div class="user-box">
           <input class="user-box-input" required type="text" v-model="email" />
@@ -12,13 +12,18 @@
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
-          <button @click="signUp()" class="button">Sign up</button>
+          <input
+            type="submit"
+            class="button block"
+            :value="loading ? 'Registering...' : 'Register'"
+            :disabled="loading"
+          />
           <router-link to="/store" class="router">Go to Store</router-link>
           <router-link to="/login" class="router">Go to Login</router-link>
         </div>
         <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -29,12 +34,14 @@ import { pinia } from '../stores/ah'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 
 const Ssession = pinia()
+const loading = ref(false)
 const email = ref('')
 const password = ref('')
 const router = useRouter()
 
 const signUp = async () => {
   try {
+    loading.value = true
     const { data: usersData, error: usersError } = await supabase
       .from('users')
       .select()
@@ -47,20 +54,27 @@ const signUp = async () => {
     if (usersData && usersData.length > 0) {
       alert('Email already registered.')
     } else {
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+      const { user, error: signUpError } = await supabase.auth.signUp({
         email: email.value,
         password: password.value
       })
+      const { data, error: insertError } = await supabase
+        .from('users')
+        .insert([{ email, password }], { returning: 'minimal' })
 
-      if (signUpError) {
-        throw new Error(signUpError.message)
+      if (insertError) {
+        console.error(insertError)
+        return
       } else {
         alert('Please check your email for confirmation.')
+        console.log('User created:', user)
       }
     }
   } catch (error) {
     console.error(error)
     alert('An error occurred during signup. Please try again later.')
+  } finally {
+    loading.value = false
   }
 }
 
