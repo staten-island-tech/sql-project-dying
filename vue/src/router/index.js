@@ -4,7 +4,6 @@ import Store from '../views/Store.vue'
 import Login from '../views/login.vue'
 import HomeView from '../views/HomeView.vue'
 import CreateAcc from '../views/Create.vue'
-let localUser
 
 const routes = [
   {
@@ -21,7 +20,8 @@ const routes = [
   },
   {
     path: '/store',
-    component: Store
+    component: Store,
+    meta: { requiresAuth: true }
   }
 ]
 

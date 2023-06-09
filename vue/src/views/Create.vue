@@ -4,11 +4,11 @@
     <div class="form">
       <div class="login-box">
         <div class="user-box">
-          <input class="user-box-input" type="text" required />
+          <input class="user-box-input" required type="text" v-model="email" />
           <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-          <input class="user-box-input" type="password" required />
+          <input class="user-box-input" required type="password" v-model="password" />
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
@@ -21,29 +21,52 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { supabase } from '../supa/supabase.js'
+import { ref, onMounted } from 'vue'
+import { supabase } from '../lib/supabaseClient'
+import { pinia } from '../stores/ah'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 
+const Ssession = pinia()
 const email = ref('')
 const password = ref('')
+const router = useRouter()
 
-async function signUp() {
+const signUp = async () => {
   try {
-    const { user, error } = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value
-    })
-    if (error) {
-      console.error(error)
+    const { data: usersData, error: usersError } = await supabase
+      .from('users')
+      .select()
+      .eq('email', email.value)
+
+    if (usersError) {
+      throw new Error(usersError.message)
+    }
+
+    if (usersData && usersData.length > 0) {
+      alert('Email already registered.')
     } else {
-      console.log(user)
-      email.value = ''
-      password.value = ''
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: email.value,
+        password: password.value
+      })
+
+      if (signUpError) {
+        throw new Error(signUpError.message)
+      } else {
+        alert('Please check your email for confirmation.')
+      }
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    alert('An error occurred during signup. Please try again later.')
   }
 }
+
+onMounted(() => {
+  if (Ssession.session !== null) {
+    router.push(`/store/${Ssession.session.user.id}`)
+  }
+})
 </script>
 
 <style scoped>

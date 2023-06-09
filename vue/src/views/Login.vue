@@ -31,11 +31,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { supabase } from '../lib/supabaseClient.js'
+import { pinia } from '../stores/ah'
+import { RouterLink, useRouter } from 'vue-router'
 
+const Ssession = pinia()
 const email = ref('')
 const password = ref('')
+const router = useRouter()
 
 async function login() {
   try {
@@ -52,6 +56,10 @@ async function login() {
     }
   } catch (error) {
     console.log(error)
+  } finally {
+    if (Ssession.session.user.role === 'authenticated') {
+      router.push(`/store/${Ssession.session.user.id}`)
+    }
   }
 }
 
@@ -61,12 +69,18 @@ async function logout() {
     if (error) {
       console.log(error)
     } else {
-      this.user = null
+      this.users = null
     }
   } catch (error) {
     console.log(error)
   }
 }
+
+onMounted(() => {
+  if (Ssession.session !== null) {
+    router.push(`/store/${Ssession.session.user.id}`)
+  }
+})
 </script>
 
 <style scoped>
