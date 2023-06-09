@@ -27,10 +27,11 @@
 <script setup>
 import { ref } from 'vue'
 import { supabase } from '../lib/supabaseClient'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
-
+const router = useRouter()
 
 const login = async () => {
   try {
@@ -62,6 +63,7 @@ const login = async () => {
       }
       console.log('User logged in:', user)
       console.log('Session:', session)
+      router.push('/store')
     } else {
       alert('Invalid email or password.')
     }
