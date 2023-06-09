@@ -43,12 +43,12 @@ getCards()
 
     <div class="display">
       <div v-for="character in store.characters">
-        <div class="display-card"><img class="display-img" v-bind:src="character.images" /></div>
+        <div class="display-card"><img class="display-img" v-bind:src="character.image" /></div>
 
         <div class="description">
-          <h3 class="display-title">{{ character.names }}</h3>
-          <h4 class="display-price">${{ character.prices }}</h4>
-          <button class="btn" @click="AddCart(character.prices)">ADD TO CART</button>
+          <h3 class="display-title">{{ character.name }}</h3>
+          <h4 class="display-price">${{ character.price }}</h4>
+          <button class="btn" @click="AddCart(character.price)">ADD TO CART</button>
         </div>
       </div>
     </div>
