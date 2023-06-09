@@ -323,6 +323,7 @@ h2 {
   align-items: center;
   justify-content: center;
   color: white;
+
 }
 
 .display-img {
