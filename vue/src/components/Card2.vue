@@ -17,6 +17,5 @@ div {
   text-align: center;
   flex-wrap: wrap;
   width: 250px;
-  color: white;
 }
 </style>
