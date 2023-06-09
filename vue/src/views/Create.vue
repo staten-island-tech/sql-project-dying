@@ -30,14 +30,10 @@
 <script setup>
 import { ref } from 'vue'
 import { supabase } from '../lib/supabaseClient'
-import { pinia } from '../stores/ah'
-import { useRouter } from 'vue-router'
 
-const Ssession = pinia()
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
-const router = useRouter()
 
 const signUp = async () => {
   try {
