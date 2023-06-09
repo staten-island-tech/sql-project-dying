@@ -20,8 +20,7 @@ const routes = [
   },
   {
     path: '/store',
-    component: Store,
-    meta: { requiresAuth: true }
+    component: Store
   }
 ]
 
