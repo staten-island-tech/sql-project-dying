@@ -1,11 +1,17 @@
+<template>
+  <RouterView />
+</template>
 <script setup>
-import { onMounted, ref } from 'vue'
-import Account from './components/Account.vue'
-import Auth from './components/Auth.vue'
-import { supabase } from './supabase'
-import { RouterLink, RouterView } from 'vue-router'
+import { onMounted, ref, watch } from 'vue'
+import { supabase } from './lib/supabaseClient'
+import { pinia } from './stores/ah'
 
+const storedSession = pinia()
 const session = ref()
+
+supabase.auth.onAuthStateChange((event, session) => {
+  storedSession.session = session
+})
 
 onMounted(() => {
   supabase.auth.getSession().then(({ data }) => {
@@ -17,17 +23,4 @@ onMounted(() => {
   })
 })
 </script>
-
-<template>
-  <div class="container" style="padding: 50px 0 100px 0">
-    <Account v-if="session" :session="session" />
-    <Auth v-else />
-    <RouterView />
-  </div>
-</template>
-
-<style scoped>
-/* h1 {
-  font-size: 4rem;
-} */
-</style>
+<style scoped></style>

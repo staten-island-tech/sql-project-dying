@@ -6,12 +6,12 @@ import { RouterLink, RouterView } from 'vue-router'
 import { Store } from '../stores/counter'
 
 let carttotal = ref(0)
-let books = ref([])
+let cards = ref([])
 let store = Store()
 
 function updateCart() {
   carttotal.value = store.carttotal
-  books.value = store.cart
+  cards.value = store.cart
 }
 
 async function update() {

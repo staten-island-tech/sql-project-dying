@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { supabase } from '../supabase'
 import { onMounted, ref, toRefs } from 'vue'
 import Avatar from './Avatar.vue'
@@ -100,5 +100,12 @@ async function signOut() {
     <RouterLink to="/store">Signed in Successfully! Click here to go to store.</RouterLink>
   </form>
 </template>
+
+<style lang="scss" scoped></style> -->
+<template>
+  <div></div>
+</template>
+
+<script setup></script>
 
 <style lang="scss" scoped></style>

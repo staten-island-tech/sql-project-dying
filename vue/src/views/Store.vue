@@ -1,100 +1,248 @@
 <script setup>
-import { nextTick, ref, onMounted } from 'vue'
-import { supabase } from '../lib/supabaseClient'
-import { RouterLink, RouterView } from 'vue-router'
-import character from '../components/Card2.vue'
-import { Store } from '../stores/counter'
-import Cart from '../components/Cart.vue'
-
-let users = []
-const characters = ref([])
-const store = Store()
-let total = ref(store.carttotal)
-let showcart = ref(true)
-
-async function getCharacters() {
-  const { data } = await supabase.from('characters').select()
-  characters.value = data
-  console.log(characters.value)
-}
-async function getUsers() {
-  const { data } = await supabase.from('users').select()
-  users.value = data
+import { supabase } from '../lib/supabaseClient.js'
+import { ref, onMounted } from 'vue'
+import { useSupabaseStore } from '../stores/counter'
+const store = useSupabaseStore()
+async function getCards() {
+  const { data } = await supabase.from('character').select()
+  store.characters = data
 }
 
-async function update() {
-  store.update2 = !store.update2
-  await nextTick()
-  store.update2 = !store.update2
+async function AddCart(x) {
+  store.cartTotal = store.cartTotal + x
 }
-
-async function clearCart() {
-  const { error } = await supabase.from('users').update({ incart: [] }).eq('id', store.currentid)
-  updatePrices()
-}
-
-async function updateUsers(name, price, pic) {
-  getUsers()
-  update()
-  store.cart.splice(0, 0, { name: name, price: price, pic: pic })
-  const { error } = await supabase
-    .from('users')
-    .update({ incart: store.cart })
-    .eq('id', store.currentid)
-  let sum = 0
-  store.cart.forEach((element) => (sum = element.price + sum))
-  store.carttotal = sum
-  total.value = store.carttotal
-  const { error2 } = await supabase
-    .from('users')
-    .update({ carttotal: store.carttotal })
-    .eq('id', store.currentid)
-}
-
-getUsers()
-getCharacters()
+getCards()
+console.log(store.characters)
+getCards()
 </script>
 
 <template>
-  <div class="wrap">
-    <h3 v-if="store.update">Total Cart Value: {{ store.carttotal }}</h3>
-    <button v-if="showcart" @click="showcart = !showcart">Show Cart</button>
-    <button v-else @click="showcart = !showcart">Close Cart</button>
-    <Cart></Cart>
-    <div v-for="character in characters" id="susdiv1" :key="character.id" class="comp">
-      <h3>{{ character.name }}</h3>
-      <img v-bind:src="character.image" />
-      <h4>{{ character.price }} dollars</h4>
-      <button @click="updateUsers(character.name, character.price, character.image)">Buy</button>
+  <div>
+    <section class="absHeader"></section>
+    
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1>Welcome to the Honkai: Star Rail Character Store!</h1>
+        </div>
+
+        <div class="li">
+          <nav class="routers">
+            <RouterLink to="/login">Login</RouterLink>
+
+            <RouterLink to="/">Home</RouterLink>
+
+            <RouterLink to="/store">Store</RouterLink>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="display">
+      <div class="window">
+        <h2>Total Price: ${{ store.cartTotal }}</h2>
+        <div class="line"></div>
+      </div>
+
+      <div v-for="character in store.characters" class="card">
+        <div class="display-card">
+          <img class="display-img" v-bind:src="character.image" />
+        </div>
+        <div class="line2"></div>
+        <div class="description">
+          <h3 class="display-title">{{ character.name }}</h3>
+          <h4 class="display-price">${{ character.price }}</h4>
+          <button class="btn" @click="AddCart(character.price)">ADD TO CART</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.comp {
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  flex-wrap: wrap;
-  width: 250px;
+.absHeader {
+  background-image: url(https://gamingonphone.com/wp-content/uploads/2023/05/Honkai-star-rail-Astral-Express-train.jpg);
+  background-position: center;
+  height: 60vh;
 }
-.wrap {
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+}
+h1 {
+  font-size: 50px;
+}
+.window {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: left;
+  font-family: 'Nunito', sans-serif;
+}
+.routers {
+  padding: 0px;
+  width: 98.5vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: black;
+}
+.display {
   display: flex;
   flex-wrap: wrap;
-  margin: 30px;
+  width: 90vw;
+  height: fit-content;
+  flex-direction: row;
   justify-content: space-around;
+  margin: auto;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 3rem;
+  font-family: 'Nunito', sans-serif;
+  background-color: rgb(31, 30, 77);
 }
 
-img {
-  height: 250px;
-  width: 200px;
+h2 {
+  color: white;
 }
 
-h3 {
-  text-align: center;
-  font-size: 30px;
+.btn {
+  width: 50%;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  font-style: bold;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Nunito', sans-serif;
 }
-p {
-  text-align: center;
+
+.btn:hover {
+  background-color: #bebebe;
+}
+
+.line {
+  background-color: rgba(196, 223, 250, 0.928);
+  margin: 1px;
+  width: 98.5rem;
+  height: 6px;
+  align-content: center;
+}
+
+.line2 {
+  background-color: rgba(196, 223, 250, 0.928);
+  margin: 1px;
+  width: 20rem;
+  height: 3px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logo {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  align-self: center;
+}
+.li a {
+  text-decoration: none;
+  padding: 2px 8px;
+  position: relative;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  margin: 30px 50px;
+  color: black;
+  margin-bottom: 70px;
+}
+
+.li a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  height: 100%;
+  width: 0;
+  transition: 0.4s ease-in;
+}
+
+.li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: 0;
+  transition: 0.4s ease-in;
+}
+
+.li a:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  height: 100%;
+  width: 50%;
+  border-bottom: 1px solid black;
+}
+
+.li a:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: 50%;
+  transition: 0.4s ease-in;
+  border-bottom: 1px solid black;
+}
+
+.card {
+  border: 2px solid #121849d8;
+  border-radius: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #1e3a5c76;
+}
+
+.display-card,
+.description {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 2rem;
+  justify-content: space-around;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+.display-img {
+  background-color: transparent;
+  width: 33rem;
+  height: 35rem;
+  justify-content: space-around;
+  transition: all 0.5s;
+  display: block;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.display-img:hover {
+  background-color: #1e3a5c92;
+  transform: translateY(-0.5rem);
+  box-shadow: 0 8px 16px 0 rgba(3, 6, 53, 0.715), 0 12px 40px 0 rgba(3, 6, 53, 0.715);
+}
+
+.display-title, .display-price {
+  color: rgba(196, 223, 250, 0.928);
+}
+
+.display-title {
+  text-decoration: underline;
 }
 </style>
