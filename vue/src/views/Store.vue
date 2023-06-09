@@ -129,7 +129,7 @@ h2 {
 .line {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 70rem;
+  width: 98.5rem;
   height: 6px;
   align-content: center;
 }
@@ -219,11 +219,12 @@ h2 {
   align-items: center;
   justify-content: center;
   color: white;
+  font-size: 20px;
 }
 .display-img {
   background-color: transparent;
-  width: 21rem;
-  height: 30rem;
+  width: 33rem;
+  height: 35rem;
   justify-content: space-around;
   transition: all 0.5s;
   display: block;
