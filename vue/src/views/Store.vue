@@ -18,14 +18,14 @@ getCards()
 
 <template>
   <div>
-    <section class="absHeader"></section>
-    
     <header>
+      <div class="logo">
+      </div>
+      <h1>Welcome to the Honkai: Star Rail Character Store!</h1>
       <div class="container">
-        <div class="logo">
-          <h1>Welcome to the Honkai: Star Rail Character Store!</h1>
-        </div>
-
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Diphylleia&family=Reggae+One&display=swap" rel="stylesheet">
         <div class="li">
           <nav class="routers">
             <RouterLink to="/login">Login</RouterLink>
@@ -60,10 +60,18 @@ getCards()
 </template>
 
 <style scoped>
-.absHeader {
-  background-image: url(https://gamingonphone.com/wp-content/uploads/2023/05/Honkai-star-rail-Astral-Express-train.jpg);
+.logo {
+  background-image: url(https://upload.wikimedia.org/wikipedia/en/b/b1/Honkai-Star-Rail.png);
+  background-size: 550px 450px;
   background-position: center;
-  height: 60vh;
+  width: 30rem;
+  height: 15rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  align-self: center;
+
 }
 
 .container {
@@ -74,9 +82,7 @@ getCards()
   align-items: center;
   font-family: 'Nunito', sans-serif;
 }
-h1 {
-  font-size: 50px;
-}
+
 .window {
   display: flex;
   flex-direction: column;
@@ -84,6 +90,7 @@ h1 {
   align-items: left;
   font-family: 'Nunito', sans-serif;
 }
+
 .routers {
   padding: 0px;
   width: 98.5vw;
@@ -92,10 +99,11 @@ h1 {
   margin-bottom: 20px;
   color: black;
 }
+
 .display {
   display: flex;
   flex-wrap: wrap;
-  width: 90vw;
+  width: 95vw;
   height: fit-content;
   flex-direction: row;
   justify-content: space-around;
@@ -104,7 +112,15 @@ h1 {
   align-items: center;
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
-  background-color: rgb(31, 30, 77);
+  background-image: url(https://wallpapercave.com/wp/wp7572212.jpg);
+  background-size: 2400px 10200px;
+}
+
+h1 {
+  color: rgb(31, 30, 77);
+  font-size: 70px;
+  font-family: 'Reggae One', cursive;
+  text-align: center;
 }
 
 h2 {
@@ -119,7 +135,6 @@ h2 {
   font-style: bold;
   border: none;
   border-radius: 30px;
-  font-family: 'Nunito', sans-serif;
 }
 
 .btn:hover {
@@ -129,7 +144,7 @@ h2 {
 .line {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 98.5rem;
+  width: 120rem;
   height: 6px;
   align-content: center;
 }
@@ -143,11 +158,6 @@ h2 {
   margin-right: auto;
 }
 
-.logo {
-  padding-top: 10px;
-  padding-bottom: 20px;
-  align-self: center;
-}
 .li a {
   text-decoration: none;
   padding: 2px 8px;
@@ -201,7 +211,7 @@ h2 {
 }
 
 .card {
-  border: 2px solid #121849d8;
+  border: 3px solid rgba(196, 223, 250, 0.928);
   border-radius: 30px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -221,10 +231,11 @@ h2 {
   color: white;
   font-size: 20px;
 }
+
 .display-img {
-  background-color: transparent;
-  width: 33rem;
-  height: 35rem;
+  background-color: white;
+  width: 30rem;
+  height: 30rem;
   justify-content: space-around;
   transition: all 0.5s;
   display: block;
@@ -233,16 +244,102 @@ h2 {
 }
 
 .display-img:hover {
-  background-color: #1e3a5c92;
   transform: translateY(-0.5rem);
   box-shadow: 0 8px 16px 0 rgba(3, 6, 53, 0.715), 0 12px 40px 0 rgba(3, 6, 53, 0.715);
 }
 
-.display-title, .display-price {
+.display-title,
+.display-price {
   color: rgba(196, 223, 250, 0.928);
+  font-family: 'Diphylleia', serif;
 }
 
 .display-title {
+  font-size: 2rem;
   text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .logo {
+  background-image: url(https://upload.wikimedia.org/wikipedia/en/b/b1/Honkai-Star-Rail.png);
+  background-size: 275px 225px;
+  background-position: center;
+  width: 20rem;
+  height: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  align-self: center;
+
+}
+  h1 {
+  color: rgb(31, 30, 77);
+  font-size: 40px;
+  font-family: 'Reggae One', cursive;
+  text-align: center;
+}
+
+  .line {
+  background-color: rgba(196, 223, 250, 0.928);
+  margin: 1px;
+  width: 20rem;
+  height: 6px;
+  align-content: center;
+}
+
+.line2 {
+  background-color: rgba(196, 223, 250, 0.928);
+  margin: 1px;
+  width: 18rem;
+  height: 3px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.routers {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.card {
+  border: 3px solid rgba(196, 223, 250, 0.928);
+  border-radius: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #1e3a5c76;
+}
+
+.display-card,
+.description {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 2rem;
+  justify-content: space-around;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.display-img {
+  background-color: white;
+  width: 18rem;
+  height: 18rem;
+  justify-content: space-around;
+  transition: all 0.5s;
+  display: block;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.display-title {
+  font-size: 1.5rem;
+  text-decoration: underline;
+}
+
 }
 </style>
