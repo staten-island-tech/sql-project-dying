@@ -4,17 +4,17 @@
     <div class="form">
       <div class="login-box">
         <div class="user-box">
-          <input class="user-box-input" type="text" required />
+          <input class="user-box-input" type="text" v-model="email" required />
           <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-          <input class="user-box-input" type="password" required />
+          <input class="user-box-input" type="password" v-model="password" required />
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
           <button @click="login()" class="button">Login</button>
           <button @click="logout()" class="button">Log out</button>
-          <router-link to="/page" class="router">Go to Store</router-link>
+          <router-link to="/store" class="router">Go to Store</router-link>
         </div>
         <router-link id="create" to="/createacc">Create Account</router-link>
       </div>
@@ -25,13 +25,12 @@
 </template>
 
 <script setup>
-import { useSupabaseStore } from '../stores/counter.js'
 import { ref } from 'vue'
+import { supabase } from '../lib/supabaseClient'
 
-const store = useSupabaseStore()
-const error = ref('')
 const email = ref('')
 const password = ref('')
+
 
 const login = async () => {
   try {
@@ -52,7 +51,7 @@ const login = async () => {
         user,
         session,
         error: loginError
-      } = await supabase.auth.signIn({
+      } = await supabase.auth.signInWithPassword({
         email: email.value,
         password: password.value
       })
@@ -71,11 +70,16 @@ const login = async () => {
   }
 }
 
-async function logout() {
+const logout = async () => {
   try {
-    await store.logout()
+    const { error } = await supabase.auth.signOut()
+    if (error) {
+      throw new Error(error.message)
+    }
+    console.log('User logged out')
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    alert('An error occurred during logout. Please try again.')
   }
 }
 </script>
