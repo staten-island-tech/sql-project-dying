@@ -18,14 +18,16 @@ getCards()
 
 <template>
   <div>
+    <section class="absHeader"></section>
+    
     <header>
       <div class="container">
         <div class="logo">
-          <h2>Honkai</h2>
+          <h1>Welcome to the Honkai: Star Rail Character Store!</h1>
         </div>
 
         <div class="li">
-          <nav>
+          <nav class="routers">
             <RouterLink to="/login">Login</RouterLink>
 
             <RouterLink to="/">Home</RouterLink>
@@ -36,15 +38,17 @@ getCards()
       </div>
     </header>
 
-    <div class="window">
-      <h1>${{ store.cartTotal }}</h1>
-      <div class="line"></div>
-    </div>
-
     <div class="display">
-      <div v-for="character in store.characters">
-        <div class="display-card"><img class="display-img" v-bind:src="character.image" /></div>
+      <div class="window">
+        <h2>Total Price: ${{ store.cartTotal }}</h2>
+        <div class="line"></div>
+      </div>
 
+      <div v-for="character in store.characters" class="card">
+        <div class="display-card">
+          <img class="display-img" v-bind:src="character.image" />
+        </div>
+        <div class="line2"></div>
         <div class="description">
           <h3 class="display-title">{{ character.name }}</h3>
           <h4 class="display-price">${{ character.price }}</h4>
@@ -56,6 +60,12 @@ getCards()
 </template>
 
 <style scoped>
+.absHeader {
+  background-image: url(https://gamingonphone.com/wp-content/uploads/2023/05/Honkai-star-rail-Astral-Express-train.jpg);
+  background-position: center;
+  height: 60vh;
+}
+
 .container {
   height: 100%;
   display: flex;
@@ -64,17 +74,18 @@ getCards()
   align-items: center;
   font-family: 'Nunito', sans-serif;
 }
+h1 {
+  font-size: 50px;
+}
 .window {
-  padding: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: left;
   font-family: 'Nunito', sans-serif;
 }
 
 .display {
-  padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
   width: 90vw;
@@ -84,21 +95,23 @@ getCards()
   margin: auto;
   box-sizing: border-box;
   align-items: center;
-  background-color: #56565636;
-  border-radius: 30px;
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
+  background-color: rgb(31, 30, 77);
+}
+
+h2 {
+  color: white;
 }
 
 .btn {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   background-color: #ffffff;
   color: #000000;
   font-style: bold;
   border: none;
   border-radius: 30px;
-
   font-family: 'Nunito', sans-serif;
 }
 
@@ -107,11 +120,20 @@ getCards()
 }
 
 .line {
-  background-color: black;
+  background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 60rem;
+  width: 70rem;
   height: 6px;
   align-content: center;
+}
+
+.line2 {
+  background-color: rgba(196, 223, 250, 0.928);
+  margin: 1px;
+  width: 20rem;
+  height: 3px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .logo {
@@ -121,12 +143,12 @@ getCards()
 }
 .li a {
   text-decoration: none;
-  color: black;
   padding: 2px 8px;
   position: relative;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   letter-spacing: 1px;
   margin: 20px 30px;
+  color: white;
 }
 
 .li a::before {
@@ -156,7 +178,7 @@ getCards()
   right: 50%;
   height: 100%;
   width: 50%;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid white;
 }
 
 .li a:hover::after {
@@ -167,11 +189,15 @@ getCards()
   height: 100%;
   width: 50%;
   transition: 0.4s ease-in;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid white;
 }
 
-.active-link {
-  font-weight: 700;
+.card {
+  border: 2px solid #121849d8;
+  border-radius: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #1e3a5c76;
 }
 
 .display-card,
@@ -179,30 +205,35 @@ getCards()
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  border-radius: 20px;
   padding: 2rem;
   justify-content: space-around;
   font-weight: bold;
   align-items: center;
   justify-content: center;
+  color: white;
 }
 .display-img {
-  width: 19.4rem;
+  background-color: transparent;
+  width: 21rem;
   height: 30rem;
   justify-content: space-around;
-  border-radius: 30px;
-  transition: all 0.2s;
-}
-.display-title,
-.display-release {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  font-weight: bold;
-  text-align: center;
+  transition: all 0.5s;
+  display: block;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .display-img:hover {
+  background-color: #1e3a5c92;
   transform: translateY(-0.5rem);
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 8px 16px 0 rgba(3, 6, 53, 0.715), 0 12px 40px 0 rgba(3, 6, 53, 0.715);
+}
+
+.display-title, .display-price {
+  color: rgba(196, 223, 250, 0.928);
+}
+
+.display-title {
+  text-decoration: underline;
 }
 </style>
