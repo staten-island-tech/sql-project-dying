@@ -90,6 +90,7 @@ onMounted(() => {
   align-items: center;
   background-image: url(../assets/bg.png);
   height: 1000px;
+  background-position: center;
 }
 
 h1 {
