@@ -1,26 +1,20 @@
 <template>
-  <div role="main" class="container">
-    <h1>Login</h1>
+  <div class="container">
+    <h2>Login</h2>
     <div class="form">
       <div class="login-box">
         <div class="user-box">
-          <input class="user-box-input" id="email" aria-label="email" type="text" required />
-          <label class="user-box-label" for="email">Email</label>
+          <input class="user-box-input" type="text" required />
+          <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-          <input
-            class="user-box-input"
-            id="password"
-            aria-label="password"
-            type="password"
-            required
-          />
-          <label class="user-box-label" for="password">Password</label>
+          <input class="user-box-input" type="password" required />
+          <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
           <button @click="login()" class="button">Login</button>
           <button @click="logout()" class="button">Log out</button>
-          <router-link to="/store" class="router">Go to Store</router-link>
+          <router-link to="/page" class="router">Go to Store</router-link>
         </div>
         <router-link id="create" to="/createacc">Create Account</router-link>
       </div>
@@ -31,74 +25,78 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '../lib/supabaseClient.js'
-import { pinia } from '../stores/ah'
-import { RouterLink, useRouter } from 'vue-router'
+import { useSupabaseStore } from '../stores/counter.js'
+import { ref } from 'vue'
 
-const Ssession = pinia()
+const store = useSupabaseStore()
+const error = ref('')
 const email = ref('')
 const password = ref('')
-const router = useRouter()
 
-async function login() {
+const login = async () => {
   try {
-    const { user, error } = await supabase.auth.signInWithPassword({
-      email: email.value,
-      password: password.value
-    })
-    if (error) {
-      console.error(error)
+    const { data: usersData, error: usersError } = await supabase
+      .from('users')
+      .select()
+      .eq('email', email.value)
+      .eq('password', password.value)
+      .single()
+
+    if (usersError) {
+      console.error(usersError)
+      return
+    }
+
+    if (usersData) {
+      const {
+        user,
+        session,
+        error: loginError
+      } = await supabase.auth.signIn({
+        email: email.value,
+        password: password.value
+      })
+
+      if (loginError) {
+        console.error(loginError)
+        return
+      }
+      console.log('User logged in:', user)
+      console.log('Session:', session)
     } else {
-      console.error(user)
-      email.value = ''
-      password.value = ''
+      alert('Invalid email or password.')
     }
   } catch (error) {
-    console.log(error)
-  } finally {
-    if (Ssession.session.user.role === 'authenticated') {
-      router.push(`/store/${Ssession.session.user.id}`)
-    }
+    console.error(error)
   }
 }
 
 async function logout() {
   try {
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-      console.log(error)
-    } else {
-      this.users = null
-    }
+    await store.logout()
   } catch (error) {
     console.log(error)
   }
 }
-
-onMounted(() => {
-  if (Ssession.session !== null) {
-    router.push(`/store/${Ssession.session.user.id}`)
-  }
-})
 </script>
 
 <style scoped>
+h2 {
+  font-size: 40px;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image: url(../assets/bg.png);
   height: 1000px;
-  background-position: center;
 }
 
-h1 {
+h2 {
   font-size: 40px;
   color: white;
   text-decoration: overline underline;
   margin-top: 95px;
-  background-color: #191b29;
 }
 
 .form input {
@@ -118,7 +116,7 @@ h1 {
   border-radius: 10px;
   background-color: #1e3a5c76;
   box-shadow: 0px 15px 20px 0px rgb(0, 0, 0);
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   width: 450px;
@@ -164,7 +162,7 @@ h1 {
 
 .button {
   color: white;
-  background-color: #345593;
+  background-color: #96a5d5;
   padding: 10px 20px;
   margin: 10px;
   border: none;
@@ -177,7 +175,7 @@ h1 {
 
 .router {
   color: white;
-  background-color: #1c3a63;
+  background-color: #7a98d0;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -199,7 +197,7 @@ h1 {
 }
 
 #goBack {
-  margin-top: 30px;
+  margin-top: 280px;
   border-color: #0da3de;
   color: #0da3de;
   background-color: #1e3a5c76;
