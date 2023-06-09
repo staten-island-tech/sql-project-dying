@@ -113,8 +113,7 @@ getCards()
   align-items: center;
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
-  background-image: url(https://wallpapercave.com/wp/wp7572212.jpg);
-  background-size: 2400px 10200px;
+  background-color: #001542f5;
 }
 
 h1 {
@@ -145,11 +144,10 @@ h2 {
 .line {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 120rem;
+  width: 110rem;
   height: 6px;
   align-content: center;
 }
-
 .line2 {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
