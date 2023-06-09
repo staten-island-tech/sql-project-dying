@@ -100,6 +100,10 @@ h1 {
   background-color: rgb(31, 30, 77);
 }
 
+h2 {
+  color: white;
+}
+
 .btn {
   width: 50%;
   padding: 10px;
