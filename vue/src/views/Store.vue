@@ -112,8 +112,7 @@ getCards()
   align-items: center;
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
-  background-image: url(https://wallpapercave.com/wp/wp7572212.jpg);
-  background-size: 2400px 10200px;
+  background-color: #001542f5;
 }
 
 h1 {
