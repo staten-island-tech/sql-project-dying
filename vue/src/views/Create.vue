@@ -13,6 +13,8 @@
         </div>
         <div class="buttons">
           <button @click="signUp()" class="button">Sign up</button>
+          <router-link to="/store" class="router">Go to Store</router-link>
+          <router-link to="/login" class="router">Go to Login</router-link>
         </div>
         <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
       </div>
@@ -76,6 +78,7 @@ onMounted(() => {
   align-items: center;
   background-image: url(../assets/bg.png);
   height: 1000px;
+  background-position: center;
 }
 
 h1 {
@@ -167,6 +170,7 @@ h1 {
   text-decoration: none;
   margin-top: 10px;
   height: 1rem;
+  margin-right: 10px;
 }
 .router:hover {
   background-color: #5c77d0;
