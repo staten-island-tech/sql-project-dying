@@ -4,17 +4,19 @@
     <form @submit.prevent="signUp" autocomplete="on">
       <div class="login-box">
         <div class="user-box">
-          <input class="user-box-input" required type="text" v-model="email" />
+          <input class="user-box-input" type="text" v-model="email" id="email" required />
           <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-          <input class="user-box-input" required type="password" v-model="password" />
+          <input class="user-box-input" type="password" v-model="password" id="password" required />
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
           <input
             type="submit"
             class="button block"
+            id="signup"
+            @click="signup"
             :value="loading ? 'Registering...' : 'Register'"
             :disabled="loading"
           />
@@ -30,45 +32,35 @@
 <script setup>
 import { ref } from 'vue'
 import { supabase } from '../lib/supabaseClient'
+import { useAuthStore } from '../stores/ah'
+import router from '../router'
 
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
 
-const signUp = async () => {
+async function signUp(email, password) {
   try {
-    const { data: usersData, error: usersError } = await supabase
-      .from('users')
-      .select()
-      .eq('email', email.value)
+    const { user, error } = await supabase.auth.signUp({
+      email: email,
+      password: password
+    })
+    if (error) {
+      throw error
+    }
+    console.log(user)
+    await supabase.auth.signInWithCredential({
+      email: email,
+      password: password
+    })
 
-    if (usersError) {
-      console.error(usersError)
-      return
+    let { user: userData, error: userError } = await supabase.auth.user()
+
+    if (userError) {
+      throw userError
     }
 
-    if (usersData && usersData.length > 0) {
-      alert('Email already registered.')
-    } else {
-      const { user, error: signUpError } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value
-      })
-
-      if (signUpError) {
-        console.error(signUpError)
-      } else {
-        const { data: createdUser, error: createUserError } = await supabase
-          .from('users')
-          .insert([{ email: email.value, password: password.value }])
-
-        if (createUserError) {
-          console.error(createUserError)
-        } else {
-          alert('Signed Up')
-        }
-      }
-    }
+    await supabase.from('users').insert([{ user_id: userData.id, email: email }])
   } catch (error) {
     console.error(error)
   }

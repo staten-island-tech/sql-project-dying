@@ -4,11 +4,11 @@
     <div class="form">
       <div class="login-box">
         <div class="user-box">
-          <input class="user-box-input" type="text" v-model="email" required />
+          <input class="user-box-input" type="text" v-model="email" id="email" required />
           <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-          <input class="user-box-input" type="password" v-model="password" required />
+          <input class="user-box-input" type="password" v-model="password" id="password" required />
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
@@ -26,49 +26,58 @@
 
 <script setup>
 import { ref } from 'vue'
-import { supabase } from '../lib/supabaseClient'
+import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/ah'
+
+const supabaseUrl = 'https://fpkejmxvpvlhslabdvav.supabase.co'
+const supabaseKey =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwa2VqbXh2cHZsaHNsYWJkdmF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI5NTAwMjIsImV4cCI6MTk5ODUyNjAyMn0.qgHy-0uRy6Jro3P1_epJbIBW4zyQ25__BEf6jR5wPdo'
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 const email = ref('')
 const password = ref('')
 const router = useRouter()
 
-const login = async () => {
+async function signIn(supabase, userEmail, userPassword) {
   try {
-    const { data: usersData, error: usersError } = await supabase
-      .from('users')
-      .select()
-      .eq('email', email.value)
-      .eq('password', password.value)
-      .single()
+    await supabase.auth.signInWithPassword({
+      email: userEmail,
+      password: userPassword
+    })
 
-    if (usersError) {
-      console.error(usersError)
-      return
-    }
-
-    if (usersData) {
-      const {
-        user,
-        session,
-        error: loginError
-      } = await supabase.auth.signInWithPassword({
-        email: email.value,
-        password: password.value
-      })
-
-      if (loginError) {
-        console.error(loginError)
-        return
-      }
-      console.log('User logged in:', user)
-      console.log('Session:', session)
-      router.push('/store')
-    } else {
-      alert('Invalid email or password.')
-    }
+    let {
+      data: { user }
+    } = await supabase.auth.getUser()
+    useAuthStore().loadUser(user.id)
+    router.push('store')
   } catch (error) {
+    this.errormessage = 'Couldnt log you in, please check your credentials or try again later.'
     console.error(error)
+  }
+}
+
+const signInPage = {
+  methods: {
+    async login(a) {
+      a.preventDefault()
+
+      let email = document.getElementById('email').value
+      let password = document.getElementById('password').value
+
+      if (email === '' || password === '') {
+        console.log('error')
+      } else {
+        signIn(supabase, email, password)
+      }
+      this.$emit('loggedin')
+    },
+    emits: ['loggedin'],
+    data() {
+      return {
+        errormessage: ''
+      }
+    }
   }
 }
 
