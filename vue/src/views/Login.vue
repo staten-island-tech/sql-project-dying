@@ -124,6 +124,7 @@ h2 {
   top: 50%;
   left: 50%;
   width: 450px;
+  height: 200px;
   padding: 30px;
   transform: translate(-50%, -50%);
 }
@@ -201,9 +202,8 @@ h2 {
 }
 
 #goBack {
-  margin-top: 280px;
-  border-color: #0da3de;
-  color: #0da3de;
+  margin-top: 225px;
+  color: #77c6e6;
   background-color: #1e3a5c76;
   border-radius: 0px;
   font-weight: 900;
