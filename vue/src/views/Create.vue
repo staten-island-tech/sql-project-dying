@@ -132,8 +132,8 @@ h1 {
 }
 .user-box-label {
   position: absolute;
-  top: 13px;
-  left: 20px;
+  top: 11px;
+  left: 8px;
   padding: 10px 0;
   font-size: 15px;
   color: #fff;
