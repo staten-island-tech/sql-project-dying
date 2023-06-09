@@ -84,7 +84,14 @@ h1 {
   align-items: left;
   font-family: 'Nunito', sans-serif;
 }
-
+.routers {
+  padding: 0px;
+  width: 98.5vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: black;
+}
 .display {
   display: flex;
   flex-wrap: wrap;
@@ -147,8 +154,9 @@ h2 {
   position: relative;
   font-size: 1.5rem;
   letter-spacing: 1px;
-  margin: 20px 30px;
-  color: white;
+  margin: 30px 50px;
+  color: black;
+  margin-bottom: 70px;
 }
 
 .li a::before {
