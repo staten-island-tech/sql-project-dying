@@ -60,13 +60,20 @@ getCards()
 </template>
 
 <style scoped>
+
+
 .logo {
   background-image: url(https://upload.wikimedia.org/wikipedia/en/b/b1/Honkai-Star-Rail.png);
+  background-size: 550px 450px;
   background-position: center;
-  width: 20rem;
-  height: 10rem;
+  width: 30rem;
+  height: 15rem;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  align-self: center;
+
 }
 
 .container {
@@ -95,7 +102,7 @@ getCards()
 .display {
   display: flex;
   flex-wrap: wrap;
-  width: 90vw;
+  width: 95vw;
   height: fit-content;
   flex-direction: row;
   justify-content: space-around;
@@ -104,7 +111,8 @@ getCards()
   align-items: center;
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
-  background-color: rgb(31, 30, 77);
+  background-image: url(https://wallpapercave.com/wp/wp7572212.jpg);
+  background-size: 2400px 10200px;
 }
 h1 {
   color: rgb(31, 30, 77);
@@ -133,7 +141,7 @@ h2 {
 .line {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 98.5rem;
+  width: 120rem;
   height: 6px;
   align-content: center;
 }
@@ -147,11 +155,7 @@ h2 {
   margin-right: auto;
 }
 
-.logo {
-  padding-top: 10px;
-  padding-bottom: 20px;
-  align-self: center;
-}
+
 .li a {
   text-decoration: none;
   padding: 2px 8px;
