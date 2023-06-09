@@ -21,7 +21,7 @@ getCards()
     <header>
       <div class="container">
         <div class="logo">
-          <h2>Honkai</h2>
+          <h1>Honkai</h1>
         </div>
 
         <div class="li">
@@ -37,14 +37,15 @@ getCards()
     </header>
 
     <div class="window">
-      <h1>${{ store.cartTotal }}</h1>
+      <h2>${{ store.cartTotal }}</h2>
       <div class="line"></div>
     </div>
 
     <div class="display">
       <div v-for="character in store.characters">
-        <div class="display-card"><img class="display-img" v-bind:src="character.image" /></div>
-
+        <div class="display-card">
+          <img class="display-img" v-bind:src="character.image" />
+        </div>
         <div class="description">
           <h3 class="display-title">{{ character.name }}</h3>
           <h4 class="display-price">${{ character.price }}</h4>
@@ -187,10 +188,10 @@ getCards()
   justify-content: center;
 }
 .display-img {
-  width: 19.4rem;
+  width: 21rem;
   height: 30rem;
   justify-content: space-around;
-  border-radius: 30px;
+  border-radius: 20px;
   transition: all 0.2s;
 }
 .display-title,
