@@ -39,24 +39,24 @@ const loading = ref(false)
 const email = ref('')
 const password = ref('')
 
-async function signUp(email, password) {
+async function signUp(supabase, emailValue, passwordValue) {
   try {
     const { user, error } = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value
+      email: emailValue,
+      password: passwordValue
     })
     if (error) {
       console.log(error)
     } else {
       console.log(user)
       await supabase.auth.signInWithPassword({
-        email: email.value,
-        password: password.value
+        email: emailValue,
+        password: passwordValue
       })
 
       const { data, error: insertError } = await supabase
         .from('users')
-        .insert([{ user_id: user.id, email: email.value }])
+        .insert([{ user_id: user.id, email: emailValue }])
 
       if (insertError) {
         console.log(insertError)
@@ -74,8 +74,8 @@ const signUpPage = {
     signup(a) {
       a.preventDefault()
 
-      const emailValue = email.value
-      const passwordValue = password.value
+      const emailValue = document.getElementById('email').value
+      const passwordValue = document.getElementById('password').value
 
       if (emailValue === '' || passwordValue === '') {
         console.error('Error: Email and password cannot be empty')
