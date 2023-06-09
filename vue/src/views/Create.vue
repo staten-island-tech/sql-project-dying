@@ -28,10 +28,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { supabase } from '../lib/supabaseClient'
 import { pinia } from '../stores/ah'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const Ssession = pinia()
 const loading = ref(false)
@@ -41,14 +41,14 @@ const router = useRouter()
 
 const signUp = async () => {
   try {
-    loading.value = true
     const { data: usersData, error: usersError } = await supabase
       .from('users')
       .select()
       .eq('email', email.value)
 
     if (usersError) {
-      throw new Error(usersError.message)
+      console.error(usersError)
+      return
     }
 
     if (usersData && usersData.length > 0) {
@@ -58,31 +58,25 @@ const signUp = async () => {
         email: email.value,
         password: password.value
       })
-      const { data, error: insertError } = await supabase
-        .from('users')
-        .insert([{ email, password }], { returning: 'minimal' })
 
-      if (insertError) {
-        console.error(insertError)
-        return
+      if (signUpError) {
+        console.error(signUpError)
       } else {
-        alert('Please check your email for confirmation.')
-        console.log('User created:', user)
+        const { data: createdUser, error: createUserError } = await supabase
+          .from('users')
+          .insert([{ email: email.value, password: password.value }])
+
+        if (createUserError) {
+          console.error(createUserError)
+        } else {
+          alert('Signed Up')
+        }
       }
     }
   } catch (error) {
     console.error(error)
-    alert('An error occurred during signup. Please try again later.')
-  } finally {
-    loading.value = false
   }
 }
-
-onMounted(() => {
-  if (Ssession.session !== null) {
-    router.push(`/store/${Ssession.session.user.id}`)
-  }
-})
 </script>
 
 <style scoped>
