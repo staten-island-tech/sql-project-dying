@@ -120,7 +120,7 @@ h2 {
   border-radius: 10px;
   background-color: #1e3a5c76;
   box-shadow: 0px 15px 20px 0px rgb(0, 0, 0);
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   width: 450px;
@@ -144,8 +144,8 @@ h2 {
 }
 .user-box-label {
   position: absolute;
-  top: 13px;
-  left: 20px;
+  top: 10px;
+  left: 8px;
   padding: 10px 0;
   font-size: 15px;
   color: #fff;
@@ -202,7 +202,7 @@ h2 {
 }
 
 #goBack {
-  margin-top: 225px;
+  margin-top: 30px;
   color: #77c6e6;
   background-color: #1e3a5c76;
   border-radius: 0px;
