@@ -19,10 +19,10 @@ getCards()
 <template>
   <div>
     <header>
-      <div class="container">
         <div class="logo">
         </div>
         <h1>Welcome to the Honkai: Star Rail Character Store!</h1>
+        <div class="container">
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Diphylleia&family=Reggae+One&display=swap" rel="stylesheet">
@@ -63,9 +63,10 @@ getCards()
 .logo {
   background-image: url(https://upload.wikimedia.org/wikipedia/en/b/b1/Honkai-Star-Rail.png);
   background-position: center;
-  align-items: center;
   width: 20rem;
   height: 10rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .container {
@@ -107,9 +108,9 @@ getCards()
 }
 h1 {
   color: rgb(31, 30, 77);
-  font-size: 50px;
-  width: 85rem;
+  font-size: 70px;
   font-family: 'Reggae One', cursive;
+  text-align: center;
 }
 h2 {
   color: white;
