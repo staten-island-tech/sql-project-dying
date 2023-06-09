@@ -197,7 +197,7 @@ h2 {
   height: 100%;
   width: 50%;
   transition: 0.4s ease-in;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
 }
 
 .card {
