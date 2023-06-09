@@ -283,7 +283,7 @@ h2 {
   .line {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 100rem;
+  width: 20rem;
   height: 6px;
   align-content: center;
 }
@@ -291,7 +291,7 @@ h2 {
 .line2 {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;
-  width: 10rem;
+  width: 18rem;
   height: 3px;
   margin-left: auto;
   margin-right: auto;
@@ -323,7 +323,7 @@ h2 {
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 20px;
+
 }
 
 .display-img {
@@ -337,15 +337,10 @@ h2 {
   border-radius: 10px;
 }
 
-.display-title,
-.display-price {
-  color: rgba(196, 223, 250, 0.928);
-  font-family: 'Diphylleia', serif;
-}
-
 .display-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-decoration: underline;
 }
+
 }
 </style>
