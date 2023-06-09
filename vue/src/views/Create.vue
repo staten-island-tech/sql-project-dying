@@ -42,27 +42,49 @@ const password = ref('')
 async function signUp(email, password) {
   try {
     const { user, error } = await supabase.auth.signUp({
-      email: email,
-      password: password
+      email: email.value,
+      password: password.value
     })
     if (error) {
-      throw error
+      console.log(error)
+    } else {
+      console.log(user)
+      await supabase.auth.signInWithPassword({
+        email: email.value,
+        password: password.value
+      })
+
+      const { data, error: insertError } = await supabase
+        .from('users')
+        .insert([{ user_id: user.id, email: email.value }])
+
+      if (insertError) {
+        console.log(insertError)
+      } else {
+        console.log(data)
+      }
     }
-    console.log(user)
-    await supabase.auth.signInWithCredential({
-      email: email,
-      password: password
-    })
-
-    let { user: userData, error: userError } = await supabase.auth.user()
-
-    if (userError) {
-      throw userError
-    }
-
-    await supabase.from('users').insert([{ user_id: userData.id, email: email }])
   } catch (error) {
     console.error(error)
+  }
+}
+
+const signUpPage = {
+  methods: {
+    signup(a) {
+      a.preventDefault()
+
+      const emailValue = email.value
+      const passwordValue = password.value
+
+      if (emailValue === '' || passwordValue === '') {
+        console.error('Error: Email and password cannot be empty')
+      } else {
+        signUp(emailValue, passwordValue)
+        useAuthStore()
+        router.push('login')
+      }
+    }
   }
 }
 </script>
