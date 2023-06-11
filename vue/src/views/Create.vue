@@ -23,52 +23,74 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '../lib/supabaseClient'
-import { pinia } from '../stores/ah'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+// import { ref, onMounted } from 'vue'
+// import { supabase } from '../lib/supabaseClient'
+// import { pinia } from '../stores/ah'
+// import { RouterLink, RouterView, useRouter } from 'vue-router'
 
-const Ssession = pinia()
-const email = ref('')
-const password = ref('')
-const router = useRouter()
+// const Ssession = pinia()
+// const email = ref('')
+// const password = ref('')
+// const router = useRouter()
 
-const signUp = async () => {
+// const signUp = async () => {
+//   try {
+//     const { data: usersData, error: usersError } = await supabase
+//       .from('users')
+//       .select()
+//       .eq('email', email.value)
+
+//     if (usersError) {
+//       throw new Error(usersError.message)
+//     }
+
+//     if (usersData && usersData.length > 0) {
+//       alert('Email already registered.')
+//     } else {
+//       const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+//         email: email.value,
+//         password: password.value
+//       })
+
+//       if (signUpError) {
+//         throw new Error(signUpError.message)
+//       } else {
+//         alert('Please check your email for confirmation.')
+//       }
+//     }
+//   } catch (error) {
+//     console.error(error)
+//     alert('An error occurred during signup. Please try again later.')
+//   }
+// }
+
+// onMounted(() => {
+//   if (Ssession.session !== null) {
+//     router.push(`/store/${Ssession.session.user.id}`)
+//   }
+// })
+import { ref } from "vue";
+import { supabase } from "../lib/supabaseClient.js";
+import router from "../router/index.js";
+
+const email = ref("");
+const password = ref("");
+
+async function signUp() {
   try {
-    const { data: usersData, error: usersError } = await supabase
-      .from('users')
-      .select()
-      .eq('email', email.value)
+    const { data, error } = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value,
+    });
 
-    if (usersError) {
-      throw new Error(usersError.message)
-    }
-
-    if (usersData && usersData.length > 0) {
-      alert('Email already registered.')
-    } else {
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value
-      })
-
-      if (signUpError) {
-        throw new Error(signUpError.message)
-      } else {
-        alert('Please check your email for confirmation.')
-      }
-    }
+    await supabase
+      .from("users")
+      .insert({ email: email.value, password: password.value });
+    router.push("login");
   } catch (error) {
-    console.error(error)
-    alert('An error occurred during signup. Please try again later.')
+    console.log("An error occurred during signup", error);
   }
 }
-
-onMounted(() => {
-  if (Ssession.session !== null) {
-    router.push(`/store/${Ssession.session.user.id}`)
-  }
-})
 </script>
 
 <style scoped>

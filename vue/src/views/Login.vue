@@ -48,6 +48,7 @@ async function login() {
       password: password.value
     })
     if (error) {
+      console.log(email, password);
       console.error(error)
     } else {
       console.error(user)
@@ -57,7 +58,7 @@ async function login() {
   } catch (error) {
     console.log(error)
   } finally {
-    if (Ssession.session.user.role === 'authenticated') {
+    if (Ssession.session && Ssession.session.user.role === 'authenticated') {
       router.push(`/store/${Ssession.session.user.id}`)
     }
   }
