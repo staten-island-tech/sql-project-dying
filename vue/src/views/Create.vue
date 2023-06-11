@@ -34,7 +34,25 @@ const password = ref('')
 
 async function signUp(supabase, emailValue, passwordValue) {
   try {
-    const { user, error } = await supabase.auth.signUp({
+    const signUpPage = {
+  methods: {
+    signup(a) {
+      a.preventDefault()
+
+      const emailValue = document.getElementById('email').value
+      const passwordValue = document.getElementById('password').value
+
+      if (emailValue === '' || passwordValue === '') {
+        console.error('Error: Email and password cannot be empty')
+      } else {
+        signUp(emailValue, passwordValue)
+        useAuthStore()
+        router.push('login')
+      }
+    }
+  }
+}
+const { user, error } = await supabase.auth.signUp({
       email: emailValue,
       password: passwordValue
     })
@@ -62,24 +80,7 @@ async function signUp(supabase, emailValue, passwordValue) {
   }
 }
 
-const signUpPage = {
-  methods: {
-    signup(a) {
-      a.preventDefault()
 
-      const emailValue = document.getElementById('email').value
-      const passwordValue = document.getElementById('password').value
-
-      if (emailValue === '' || passwordValue === '') {
-        console.error('Error: Email and password cannot be empty')
-      } else {
-        signUp(emailValue, passwordValue)
-        useAuthStore()
-        router.push('login')
-      }
-    }
-  }
-}
 </script>
 
 <style scoped>
