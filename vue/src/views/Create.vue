@@ -64,9 +64,9 @@ async function signUp(supabase, emailValue, passwordValue) {
         console.log(data)
       }
     }
-    signUpPage()
+    signUpPage
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
