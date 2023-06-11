@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Create Account</h1>
-    <div class="form">
+    <form @submit.prevent="signUp" autocomplete="on">
       <div class="login-box">
         <div class="user-box">
           <input class="user-box-input" required type="text" v-model="email" />
@@ -12,75 +12,77 @@
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
-          <button @click="signUp()" class="button">Sign up</button>
+          <input
+            type="submit"
+            class="button block"
+            :value="loading ? 'Registering...' : 'Register'"
+            :disabled="loading"
+          />
           <router-link to="/store" class="router">Go to Store</router-link>
           <router-link to="/login" class="router">Go to Login</router-link>
         </div>
         <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { supabase } from '../lib/supabaseClient'
-import { useAuthStore } from '../stores/ah'
-import router from '../router'
+import { pinia } from '../stores/ah'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 
+const Ssession = pinia()
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
+const router = useRouter()
 
-async function signUp(supabase, emailValue, passwordValue) {
+const signUp = async () => {
   try {
-    const signUpPage = {
-  methods: {
-    signup(a) {
-      a.preventDefault()
+    loading.value = true
+    const { data: usersData, error: usersError } = await supabase
+      .from('users')
+      .select()
+      .eq('email', email.value)
 
-      const emailValue = document.getElementById('email').value
-      const passwordValue = document.getElementById('password').value
-
-      if (emailValue === '' || passwordValue === '') {
-        console.error('Error: Email and password cannot be empty')
-      } else {
-        signUp(emailValue, passwordValue)
-        useAuthStore()
-        router.push('login')
-      }
+    if (usersError) {
+      throw new Error(usersError.message)
     }
-  }
-}
-const { user, error } = await supabase.auth.signUp({
-      email: emailValue,
-      password: passwordValue
-    })
-    if (error) {
-      console.log(error)
-    } else {
-      console.log(user)
-      await supabase.auth.signInWithPassword({
-        email: emailValue,
-        password: passwordValue
-      })
 
+    if (usersData && usersData.length > 0) {
+      alert('Email already registered.')
+    } else {
+      const { user, error: signUpError } = await supabase.auth.signUp({
+        email: email.value,
+        password: password.value
+      })
       const { data, error: insertError } = await supabase
         .from('users')
-        .insert([{ email: emailValue, email: emailValue }])
+        .insert([{ email, password }], { returning: 'minimal' })
 
       if (insertError) {
-        console.log(insertError)
+        console.error(insertError)
+        return
       } else {
-        console.log(data)
+        alert('Please check your email for confirmation.')
+        console.log('User created:', user)
       }
     }
   } catch (error) {
     console.error(error)
+    alert('An error occurred during signup. Please try again later.')
+  } finally {
+    loading.value = false
   }
 }
 
-
+onMounted(() => {
+  if (Ssession.session !== null) {
+    router.push(`/store/${Ssession.session.user.id}`)
+  }
+})
 </script>
 
 <style scoped>
