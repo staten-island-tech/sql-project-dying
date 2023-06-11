@@ -30,4 +30,17 @@ const router = createRouter({
   routes: routes
 })
 
+router.beforeEach((to, from, next) => {
+  const auth = pinia();
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    auth.currentUser === null
+  ) {
+    console.log(".");
+    next("/login");
+  } else {
+    next();
+  }
+});
+
 export default router
