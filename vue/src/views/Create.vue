@@ -41,20 +41,12 @@ const password = ref('')
 
 async function signUp(supabase, emailValue, passwordValue) {
   try {
-    const { user, error } = await supabase.auth.signUp({
+    let { user, error } = await supabase.auth.signUp({
       email: emailValue,
       password: passwordValue
     })
-    if (error) {
-      console.log(error)
-    } else {
-      console.log(user)
-      await supabase.auth.signInWithPassword({
-        email: emailValue,
-        password: passwordValue
-      })
-
-      const updates = {
+    
+    const updates = {
       user_id: user.id,
       email: emailValue,
       password: passwordValue,
@@ -64,6 +56,15 @@ async function signUp(supabase, emailValue, passwordValue) {
       const { data, error: insertError } = await supabase
         .from('users')
         .upsert(updates)
+        
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(user)
+      let { user, error } = await supabase.auth.signInWithPassword({
+        email: emailValue,
+        password: passwordValue
+      })
 
       if (insertError) {
         console.log(insertError)
