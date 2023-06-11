@@ -4,23 +4,26 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import { supabase } from './lib/supabaseClient'
-import { pinia } from './stores/ah'
+import { useAuthStore } from './stores/ah'
 
-const storedSession = pinia()
-const session = ref()
+import { RouterLink, RouterView } from 'vue-router'
 
-supabase.auth.onAuthStateChange((event, session) => {
-  storedSession.session = session
-})
-
-onMounted(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session
-  })
-
-  supabase.auth.onAuthStateChange((_, _session) => {
-    session.value = _session
-  })
-})
+const component = {
+  methods: {
+    logOut: function () {
+      useAuthStore().clearUser()
+      router.push('login')
+      this.loggedin = false
+    },
+    login: function () {
+      this.loggedin = true
+    }
+  },
+  data() {
+    return {
+      loggedin: false
+    }
+  }
+}
 </script>
 <style scoped></style>

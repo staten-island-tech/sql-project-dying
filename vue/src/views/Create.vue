@@ -4,17 +4,19 @@
     <form @submit.prevent="signUp" autocomplete="on">
       <div class="login-box">
         <div class="user-box">
-          <input class="user-box-input" required type="text" v-model="email" />
+          <input class="user-box-input" type="text" v-model="email" id="email" required />
           <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-          <input class="user-box-input" required type="password" v-model="password" />
+          <input class="user-box-input" type="password" v-model="password" id="password" required />
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
           <input
             type="submit"
             class="button block"
+            id="signup"
+            @click="signup"
             :value="loading ? 'Registering...' : 'Register'"
             :disabled="loading"
           />
@@ -28,61 +30,63 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { supabase } from '../lib/supabaseClient'
-import { pinia } from '../stores/ah'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/ah'
+import router from '../router'
 
-const Ssession = pinia()
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
-const router = useRouter()
 
-const signUp = async () => {
+async function signUp(supabase, emailValue, passwordValue) {
   try {
-    loading.value = true
-    const { data: usersData, error: usersError } = await supabase
-      .from('users')
-      .select()
-      .eq('email', email.value)
-
-    if (usersError) {
-      throw new Error(usersError.message)
-    }
-
-    if (usersData && usersData.length > 0) {
-      alert('Email already registered.')
+    const { user, error } = await supabase.auth.signUp({
+      email: emailValue,
+      password: passwordValue
+    })
+    if (error) {
+      console.log(error)
     } else {
-      const { user, error: signUpError } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value
+      console.log(user)
+      await supabase.auth.signInWithPassword({
+        email: emailValue,
+        password: passwordValue
       })
+
       const { data, error: insertError } = await supabase
         .from('users')
-        .insert([{ email, password }], { returning: 'minimal' })
+        .insert([{ user_id: user.id, email: emailValue }])
 
       if (insertError) {
-        console.error(insertError)
-        return
+        console.log(insertError)
       } else {
-        alert('Please check your email for confirmation.')
-        console.log('User created:', user)
+        console.log(data)
       }
     }
   } catch (error) {
     console.error(error)
-    alert('An error occurred during signup. Please try again later.')
-  } finally {
-    loading.value = false
   }
 }
 
-onMounted(() => {
-  if (Ssession.session !== null) {
-    router.push(`/store/${Ssession.session.user.id}`)
+const signUpPage = {
+  methods: {
+    signup(a) {
+      a.preventDefault()
+
+      const emailValue = document.getElementById('email').value
+      const passwordValue = document.getElementById('password').value
+
+      if (emailValue === '' || passwordValue === '') {
+        console.error('Error: Email and password cannot be empty')
+      } else {
+        signUp(emailValue, passwordValue)
+        useAuthStore()
+        router.push('login')
+      }
+    }
   }
-})
+}
 </script>
 
 <style scoped>
@@ -142,8 +146,8 @@ h1 {
 }
 .user-box-label {
   position: absolute;
-  top: 13px;
-  left: 20px;
+  top: 11px;
+  left: 8px;
   padding: 10px 0;
   font-size: 15px;
   color: #fff;

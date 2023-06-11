@@ -71,7 +71,6 @@ getCards()
   padding-top: 10px;
   padding-bottom: 20px;
   align-self: center;
-
 }
 
 .container {
@@ -148,7 +147,6 @@ h2 {
   height: 6px;
   align-content: center;
 }
-
 .line2 {
   background-color: rgba(196, 223, 250, 0.928);
   margin: 1px;

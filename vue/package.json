@@ -10,7 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.22.0",
+    "@supabase/supabase-js": "^2.24.0",
     "pinia": "^2.1.3",
     "router": "^1.3.8",
     "vue": "^3.2.47",

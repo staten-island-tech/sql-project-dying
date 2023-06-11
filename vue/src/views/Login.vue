@@ -1,21 +1,15 @@
 <template>
-  <div role="main" class="container">
-    <h1>Login</h1>
+  <div class="container">
+    <h2>Login</h2>
     <div class="form">
       <div class="login-box">
         <div class="user-box">
-          <input class="user-box-input" id="email" aria-label="email" type="text" required />
-          <label class="user-box-label" for="email">Email</label>
+          <input class="user-box-input" type="text" v-model="email" id="email" required />
+          <label class="user-box-label">Email</label>
         </div>
         <div class="user-box">
-          <input
-            class="user-box-input"
-            id="password"
-            aria-label="password"
-            type="password"
-            required
-          />
-          <label class="user-box-label" for="password">Password</label>
+          <input class="user-box-input" type="password" v-model="password" id="password" required />
+          <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
           <button @click="login()" class="button">Login</button>
@@ -31,74 +25,93 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '../lib/supabaseClient.js'
-import { pinia } from '../stores/ah'
-import { RouterLink, useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { createClient } from '@supabase/supabase-js'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/ah'
 
-const Ssession = pinia()
+const supabaseUrl = 'https://fpkejmxvpvlhslabdvav.supabase.co'
+const supabaseKey =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwa2VqbXh2cHZsaHNsYWJkdmF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI5NTAwMjIsImV4cCI6MTk5ODUyNjAyMn0.qgHy-0uRy6Jro3P1_epJbIBW4zyQ25__BEf6jR5wPdo'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
 const email = ref('')
 const password = ref('')
 const router = useRouter()
 
-async function login() {
+async function signIn(supabase, userEmail, userPassword) {
   try {
-    const { user, error } = await supabase.auth.signInWithPassword({
-      email: email.value,
-      password: password.value
+    await supabase.auth.signInWithPassword({
+      email: userEmail,
+      password: userPassword
     })
-    if (error) {
-      console.error(error)
-    } else {
-      console.error(user)
-      email.value = ''
-      password.value = ''
-    }
+
+    let {
+      data: { user }
+    } = await supabase.auth.getUser()
+    useAuthStore().loadUser(user.id)
+    router.push('store')
   } catch (error) {
-    console.log(error)
-  } finally {
-    if (Ssession.session.user.role === 'authenticated') {
-      router.push(`/store/${Ssession.session.user.id}`)
+    this.errormessage = 'Couldnt log you in, please check your credentials or try again later.'
+    console.error(error)
+  }
+}
+
+const signInPage = {
+  methods: {
+    async login(a) {
+      a.preventDefault()
+
+      let email = document.getElementById('email').value
+      let password = document.getElementById('password').value
+
+      if (email === '' || password === '') {
+        console.log('error')
+      } else {
+        signIn(supabase, email, password)
+      }
+      this.$emit('loggedin')
+    },
+    emits: ['loggedin'],
+    data() {
+      return {
+        errormessage: ''
+      }
     }
   }
 }
 
-async function logout() {
+const logout = async () => {
   try {
     const { error } = await supabase.auth.signOut()
     if (error) {
-      console.log(error)
-    } else {
-      this.users = null
+      throw new Error(error.message)
     }
+    console.log('User logged out')
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    alert('An error occurred during logout. Please try again.')
   }
 }
-
-onMounted(() => {
-  if (Ssession.session !== null) {
-    router.push(`/store/${Ssession.session.user.id}`)
-  }
-})
 </script>
 
 <style scoped>
+h2 {
+  font-size: 40px;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image: url(../assets/bg.png);
   height: 1000px;
-  background-position: center;
 }
 
-h1 {
+h2 {
   font-size: 40px;
   color: white;
   text-decoration: overline underline;
   margin-top: 95px;
-  background-color: #191b29;
 }
 
 .form input {
@@ -122,6 +135,7 @@ h1 {
   top: 50%;
   left: 50%;
   width: 450px;
+  height: 200px;
   padding: 30px;
   transform: translate(-50%, -50%);
 }
@@ -141,8 +155,8 @@ h1 {
 }
 .user-box-label {
   position: absolute;
-  top: 13px;
-  left: 20px;
+  top: 12px;
+  left: 15px;
   padding: 10px 0;
   font-size: 15px;
   color: #fff;
@@ -164,7 +178,7 @@ h1 {
 
 .button {
   color: white;
-  background-color: #345593;
+  background-color: #96a5d5;
   padding: 10px 20px;
   margin: 10px;
   border: none;
@@ -177,7 +191,7 @@ h1 {
 
 .router {
   color: white;
-  background-color: #1c3a63;
+  background-color: #7a98d0;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -200,8 +214,7 @@ h1 {
 
 #goBack {
   margin-top: 30px;
-  border-color: #0da3de;
-  color: #0da3de;
+  color: #77c6e6;
   background-color: #1e3a5c76;
   border-radius: 0px;
   font-weight: 900;
