@@ -54,9 +54,16 @@ async function signUp(supabase, emailValue, passwordValue) {
         password: passwordValue
       })
 
+      const updates = {
+      user_id: user.id,
+      email: emailValue,
+      password: passwordValue,
+      created_at: new Date()
+    }
+
       const { data, error: insertError } = await supabase
         .from('users')
-        .insert([{ email: emailValue, password: passwordValue }])
+        .upsert([{ updates }])
 
       if (insertError) {
         console.log(insertError)
