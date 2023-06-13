@@ -68,24 +68,24 @@ async function signUp() {
   }
 }
 
-const signUpPage = {
-  methods: {
-    signup(a) {
-      a.preventDefault()
+// const signUpPage = {
+//   methods: {
+//     signup(a) {
+//       a.preventDefault()
 
-      const emailValue = document.getElementById('email').value
-      const passwordValue = document.getElementById('password').value
+//       const emailValue = document.getElementById('email').value
+//       const passwordValue = document.getElementById('password').value
 
-      if (emailValue === '' || passwordValue === '') {
-        console.error('Error: Email and password cannot be empty')
-      } else {
-        signUp(emailValue, passwordValue)
-        useAuthStore()
-        router.push('login')
-      }
-    }
-  }
-}
+//       if (emailValue === '' || passwordValue === '') {
+//         console.error('Error: Email and password cannot be empty')
+//       } else {
+//         signUp(emailValue, passwordValue)
+//         useAuthStore()
+//         router.push('login')
+//       }
+//     }
+//   }
+// }
 </script>
 
 <style scoped>
