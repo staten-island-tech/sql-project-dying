@@ -14,7 +14,6 @@
         <div class="buttons">
           <button @click="signIn()" class="button">Login</button>
           <button @click="logout()" class="button">Log out</button>
-          <router-link to="/store" class="router">Go to Store</router-link>
         </div>
         <router-link id="create" to="/createacc">Create Account</router-link>
       </div>
@@ -64,8 +63,6 @@ const logout = async () => {
     alert('An error occurred during logout. Please try again.')
   }
 }
-
-
 </script>
 
 <style scoped>
