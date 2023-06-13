@@ -1,4 +1,32 @@
-<script></script>
+<script>
+export default {
+  name: 'RequestCard',
+  props: {
+    primaryKey: String,
+    appointmentTime: String,
+    timeCalled: String,
+    toDoList: String,
+    petType: String,
+    petBreed: String,
+    petGender: String,
+    sitterGender: String
+  },
+  methods: {
+    remove: function () {
+      this.$emit('remove', this.primaryKey, this.checkPet(this.petType))
+    },
+    checkPet: function (petType) {
+      if (petType === 'Cat') {
+        return 'CatSitters'
+      } else if (petType === 'Dog') {
+        return 'DogSitters'
+      } else {
+        console.log('error with checker')
+      }
+    }
+  }
+}
+</script>
 
 <template>
   <div>

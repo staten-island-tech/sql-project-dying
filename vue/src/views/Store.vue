@@ -14,10 +14,6 @@ async function AddCart(x) {
 getCards()
 console.log(store.characters)
 getCards()
-
-async function addCards() {
-  
-}
 </script>
 
 <template>
