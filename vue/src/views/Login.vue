@@ -52,30 +52,6 @@ async function signIn() {
   }
 }
 
-const signInPage = {
-  methods: {
-    async login(a) {
-      a.preventDefault()
-
-      let email = document.getElementById('email').value
-      let password = document.getElementById('password').value
-
-      if (email === '' || password === '') {
-        console.log('error')
-      } else {
-        signIn(supabase, email, password)
-      }
-      this.$emit('loggedin')
-    },
-    emits: ['loggedin'],
-    data() {
-      return {
-        errormessage: ''
-      }
-    }
-  }
-}
-
 const logout = async () => {
   try {
     const { error } = await supabase.auth.signOut()
@@ -88,6 +64,8 @@ const logout = async () => {
     alert('An error occurred during logout. Please try again.')
   }
 }
+
+
 </script>
 
 <style scoped>
