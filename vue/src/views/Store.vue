@@ -90,6 +90,7 @@ getCards()
   justify-content: space-evenly;
   align-items: left;
   font-family: 'Nunito', sans-serif;
+  margin-left: 20px;
 }
 
 .routers {
@@ -104,7 +105,7 @@ getCards()
 .display {
   display: flex;
   flex-wrap: wrap;
-  width: 95vw;
+  width: 99.5vw;
   height: fit-content;
   flex-direction: row;
   justify-content: space-around;
@@ -114,7 +115,7 @@ getCards()
   padding: 3rem;
   font-family: 'Nunito', sans-serif;
   background: rgb(4, 4, 114);
-  background-size: 2400px 10200px;
+  background-size: 2500px 10200px;
 }
 
 h1 {
