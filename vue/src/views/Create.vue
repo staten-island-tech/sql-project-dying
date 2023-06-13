@@ -20,7 +20,6 @@
             :value="loading ? 'Registering...' : 'Register'"
             :disabled="loading"
           />
-          <router-link to="/store" class="router">Go to Store</router-link>
           <router-link to="/login" class="router">Go to Login</router-link>
         </div>
         <router-link id="goBack" to="/" class="router">Return To Home Page</router-link>
