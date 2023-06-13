@@ -34,7 +34,7 @@ const email = ref('')
 const password = ref('')
 const router = useRouter()
 
-async function signIn(supabase, userEmail, userPassword) {
+async function signIn() {
   try {
     await supabase.auth.signInWithPassword({
       email: email.value,
