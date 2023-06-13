@@ -12,7 +12,7 @@
           <label class="user-box-label">Password</label>
         </div>
         <div class="buttons">
-          <button @click="login()" class="button">Login</button>
+          <button @click="signIn()" class="button">Login</button>
           <button @click="logout()" class="button">Log out</button>
           <router-link to="/store" class="router">Go to Store</router-link>
         </div>
@@ -26,14 +26,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '../supabase'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/ah'
-
-const supabaseUrl = 'https://fpkejmxvpvlhslabdvav.supabase.co'
-const supabaseKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwa2VqbXh2cHZsaHNsYWJkdmF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI5NTAwMjIsImV4cCI6MTk5ODUyNjAyMn0.qgHy-0uRy6Jro3P1_epJbIBW4zyQ25__BEf6jR5wPdo'
-const supabase = createClient(supabaseUrl, supabaseKey)
 
 const email = ref('')
 const password = ref('')
@@ -42,12 +37,14 @@ const router = useRouter()
 async function signIn(supabase, emailValue, passwordValue) {
   try {
     await supabase.auth.signInWithPassword({
-      email: emailValue,
-      password: passwordValue
+      email: email.value,
+      password: password.value
     })
     signInPage
 
-    const { data: { user } } = await supabase.auth.getUser()
+    const {
+      data: { user }
+    } = await supabase.auth.getUser()
     useAuthStore().loadUser(user.id)
     router.push('store')
   } catch (error) {

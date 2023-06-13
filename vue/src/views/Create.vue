@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { supabase } from '../lib/supabaseClient'
+import { supabase } from '../supabase'
 import { useAuthStore } from '../stores/ah'
 import router from '../router'
 
@@ -39,13 +39,13 @@ const loading = ref(false)
 const email = ref('')
 const password = ref('')
 
-async function signUp(supabase, emailValue, passwordValue) {
+async function signUp() {
   try {
-    let { user, error } = await supabase.auth.signUp({
-      email: emailValue,
-      password: passwordValue
+    const { user, error } = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value
     })
-    
+
     const updates = {
       user_id: user.id,
       email: emailValue,
@@ -53,18 +53,20 @@ async function signUp(supabase, emailValue, passwordValue) {
       created_at: new Date()
     }
 
-      const { data, error: insertError } = await supabase
-        .from('users')
-        .upsert(updates)
-        
+    const { data, error: insertError } = await supabase.from('users').upsert(updates)
+
     if (error) {
       console.log(error)
     } else {
       console.log(user)
-      let { user, error } = await supabase.auth.signInWithPassword({
-        email: emailValue,
-        password: passwordValue
+      await supabase.auth.signInWithPassword({
+        email: email.value,
+        password: password.value
       })
+
+      const { data, error: insertError } = await supabase
+        .from('users')
+        .insert([{ user_id: user.id, email: email.value }])
 
       if (insertError) {
         console.log(insertError)

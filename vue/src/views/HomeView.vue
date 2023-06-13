@@ -7,9 +7,7 @@
   </div>
 </template>
 
-<script setup>
-import { supabase } from '../supa/supabase.js'
-</script>
+<script setup></script>
 
 <style scoped>
 h1 {
