@@ -30,7 +30,7 @@
       <div class="description">
         <h3 class="display-title">{{ purchase.character }}</h3>
         <h4 class="display-price">${{ purchase.price }}</h4>
-        <button class="btn" @click="removeCart">REMOVE</button>
+        <button class="btn" @click="removeCart(index)">REMOVE</button>
       </div>
     </div>
   </div>
@@ -87,8 +87,34 @@ export default {
         }
       }
     },
-    removeCart(index) {
+    async removeCart(index) {
+      const purchase = this.purchases[index]
+      const { character, price, img } = purchase
+
       this.purchases.splice(index, 1)
+
+      const { data, error } = await supabase
+        .from('purchases')
+        .select('id, character, price, img')
+        .eq('email', this.userEmail)
+
+      if (error) {
+        console.error(error)
+        return
+      }
+
+      const updatedCharacterArray = data[0].character.flat().filter((name) => name !== character)
+      const updatedPriceArray = data[0].price.flat().filter((priceValue) => priceValue !== price)
+      const updatedImgArray = data[0].img.flat().filter((imageUrl) => imageUrl !== img)
+
+      await supabase
+        .from('purchases')
+        .update({
+          character: [updatedCharacterArray],
+          price: [updatedPriceArray],
+          img: [updatedImgArray]
+        })
+        .eq('email', this.userEmail)
     }
   }
 }
