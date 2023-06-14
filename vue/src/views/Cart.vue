@@ -30,7 +30,7 @@
       <div class="description">
         <h3 class="display-title">{{ purchase.character }}</h3>
         <h4 class="display-price">${{ purchase.price }}</h4>
-        <button class="btn" @click="RemoveCart">REMOVE</button>
+        <button class="btn" @click="removeCart">REMOVE</button>
       </div>
     </div>
   </div>
@@ -86,6 +86,9 @@ export default {
           }
         }
       }
+    },
+    removeCart(index) {
+      this.purchases.splice(index, 1)
     }
   }
 }
