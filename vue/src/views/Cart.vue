@@ -21,7 +21,7 @@
         </div>
       </div>
     </header>
-    <h1>{{ userEmail }}</h1>
+    <h1>{{ userEmail }}: Card Purchases</h1>
     <div v-for="(purchase, index) in purchases" class="card">
       <div class="display-card">
         <img class="display-img" v-bind:src="purchase.img" />
