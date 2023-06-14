@@ -5,8 +5,10 @@ export const useSupabaseStore = defineStore('supabase', () => {
   let cartTotal = ref(0)
 
   let characters = ref([])
+  let purchases = ref([])
   return {
     characters,
-    cartTotal
+    cartTotal,
+    purchases
   }
 })

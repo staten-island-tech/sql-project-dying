@@ -1,36 +1,3 @@
-<script setup>
-import { supabase } from '../lib/supabaseClient.js'
-import { ref, onMounted } from 'vue'
-import { useSupabaseStore } from '../stores/counter'
-const store = useSupabaseStore()
-async function getCards() {
-  const { data } = await supabase.from('character').select()
-  store.characters = data
-}
-let cartArray = []
-async function AddCart(x, name, img) {
-  console.log(name)
-  cartArray.push([name, x, img])
-  store.cartTotal = store.cartTotal + x
-  const {
-    data: { user }
-  } = await supabase.auth.getUser()
-  const { data, error } = await supabase
-    .from('purchases')
-    .update({ character: cartArray })
-    .eq('email', user.email)
-  console.log(user.email)
-  if (error) {
-    console.error(error)
-  } else {
-    console.log('Item added to cart successfully')
-  }
-}
-getCards()
-console.log(store.characters)
-getCards()
-</script>
-
 <template>
   <div>
     <header>
@@ -49,34 +16,77 @@ getCards()
 
             <RouterLink to="/">Home</RouterLink>
 
-            <router-link :to="{ path: '/cart' }"> CART</router-link>
+            <RouterLink to="/store">Store</RouterLink>
           </nav>
         </div>
       </div>
     </header>
-
-    <div class="display">
-      <div class="window">
-        <h2>Total Price: ${{ store.cartTotal }}</h2>
-        <div class="line"></div>
+    <h1>{{ userEmail }}</h1>
+    <p>{{ purchases }}</p>
+    <div v-for="purchases in store.purchases" class="card">
+      <div class="display-card">
+        <img class="display-img" v-bind:src="purchases.image[index - 1]" />
       </div>
-
-      <div v-for="character in store.characters" class="card">
-        <div class="display-card">
-          <img class="display-img" v-bind:src="character.image" />
-        </div>
-        <div class="line2"></div>
-        <div class="description">
-          <h3 class="display-title">{{ character.name }}</h3>
-          <h4 class="display-price">${{ character.price }}</h4>
-          <button class="btn" @click="AddCart(character.price, character.name, character.image)">
-            ADD TO CART
-          </button>
-        </div>
+      <div class="line2"></div>
+      <div class="description">
+        <h3 class="display-title">{{ purchases.name[index - 1] }}</h3>
+        <h4 class="display-price">${{ purchases.price[index - 1] }}</h4>
+        <button class="btn" @click="RemoveCart">REMOVE</button>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { supabase } from '../lib/supabaseClient.js'
+import { useSupabaseStore } from '../stores/counter'
+const store = useSupabaseStore()
+async function getData() {
+  const { data } = await supabase.from('purchases').select()
+  store.purchases = data
+}
+
+getData()
+console.log(store.purchases)
+getData()
+
+export default {
+  data() {
+    return {
+      userEmail: null,
+      purchases: null
+    }
+  },
+  async mounted() {
+    await this.getUser()
+  },
+  methods: {
+    async getUser() {
+      const {
+        data: { user }
+      } = await supabase.auth.getUser()
+      this.userEmail = user.email
+
+      let { data: purchases, error } = await supabase
+        .from('purchases')
+        .select('character')
+        .eq('email', user.email)
+      if (error) {
+        console.error(error)
+      } else {
+        for (const row of purchases) {
+          const columnArray = row.character
+          for (const subArray of columnArray) {
+            for (const element of subArray) {
+              console.log(element)
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .logo {

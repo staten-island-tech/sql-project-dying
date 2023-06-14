@@ -16,7 +16,7 @@
             type="submit"
             class="button block"
             id="signup"
-            @click="signup"
+            @click="signp"
             :value="loading ? 'Registering...' : 'Register'"
             :disabled="loading"
           />
@@ -35,38 +35,56 @@ import { useAuthStore } from '../stores/ah'
 import router from '../router'
 
 const loading = ref(false)
-const email = ref('')
+let email = ref('')
 const password = ref('')
 
 async function signUp() {
-  try {
-    const { user, error } = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value
-    })
+  const { user, error } = await supabase.auth.signUp({
+    email: email.value,
+    password: password.value
+  })
+
+  if (error) {
+    console.log(error)
+  } else {
+    console.log(user)
+    const { data, error } = await supabase.from('purchases').insert([{ email: email.value }])
     if (error) {
       console.log(error)
     } else {
-      console.log(user)
-      await supabase.auth.signInWithPassword({
-        email: email.value,
-        password: password.value
-      })
-
-      const { data, error: insertError } = await supabase
-        .from('users')
-        .insert([{ user_id: user.id, email: email.value }])
-
-      if (insertError) {
-        console.log(insertError)
-      } else {
-        console.log(data)
-      }
+      console.log(data)
     }
-  } catch (error) {
-    console.error(error)
   }
 }
+// async function signUp() {
+//   try {
+//     const { user, error } = await supabase.auth.signUp({
+//       email: email.value,
+//       password: password.value
+//     })
+//     if (error) {
+//       console.log(error)
+//     } else {
+//       console.log(user)
+//       await supabase.auth.signInWithPassword({
+//         email: email.value,
+//         password: password.value
+//       })
+
+//       const { data, error: insertError } = await supabase
+//         .from('users')
+//         .insert([{ user_id: user.id, email: email.value }])
+
+//       if (insertError) {
+//         console.log(insertError)
+//       } else {
+//         console.log(data)
+//       }
+//     }
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 // const signUpPage = {
 //   methods: {
