@@ -43,9 +43,10 @@ async function signUp() {
     email: email.value,
     password: password.value
   })
-
+  router.push('login')
   if (error) {
     console.log(error)
+    
   } else {
     console.log(user)
     const { data, error } = await supabase.from('purchases').insert([{ email: email.value }])

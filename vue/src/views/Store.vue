@@ -7,17 +7,27 @@ async function getCards() {
   const { data } = await supabase.from('character').select()
   store.characters = data
 }
-let cartArray = []
+
+let cartNameArray = []
+let cartPriceArray = []
+let cartImgArray = []
+
 async function AddCart(x, name, img) {
   console.log(name)
-  cartArray.push([name, x, img])
+  cartNameArray.push([name])
+  cartPriceArray.push([x])
+  cartImgArray.push([img])
   store.cartTotal = store.cartTotal + x
   const {
     data: { user }
   } = await supabase.auth.getUser()
   const { data, error } = await supabase
     .from('purchases')
-    .update({ character: cartArray })
+    .update({
+      character: cartNameArray,
+      price: cartPriceArray,
+      img: cartImgArray
+    })
     .eq('email', user.email)
   console.log(user.email)
   if (error) {

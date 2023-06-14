@@ -22,15 +22,14 @@
       </div>
     </header>
     <h1>{{ userEmail }}</h1>
-    <p>{{ purchases }}</p>
-    <div v-for="purchases in store.purchases" class="card">
+    <div v-for="(purchase, index) in purchases" class="card">
       <div class="display-card">
-        <img class="display-img" v-bind:src="purchases.image[index - 1]" />
+        <img class="display-img" v-bind:src="purchase.img" />
       </div>
       <div class="line2"></div>
       <div class="description">
-        <h3 class="display-title">{{ purchases.name[index - 1] }}</h3>
-        <h4 class="display-price">${{ purchases.price[index - 1] }}</h4>
+        <h3 class="display-title">{{ purchase.character }}</h3>
+        <h4 class="display-price">${{ purchase.price }}</h4>
         <button class="btn" @click="RemoveCart">REMOVE</button>
       </div>
     </div>
@@ -39,22 +38,12 @@
 
 <script>
 import { supabase } from '../lib/supabaseClient.js'
-import { useSupabaseStore } from '../stores/counter'
-const store = useSupabaseStore()
-async function getData() {
-  const { data } = await supabase.from('purchases').select()
-  store.purchases = data
-}
-
-getData()
-console.log(store.purchases)
-getData()
 
 export default {
   data() {
     return {
       userEmail: null,
-      purchases: null
+      purchases: []
     }
   },
   async mounted() {
@@ -69,11 +58,25 @@ export default {
 
       let { data: purchases, error } = await supabase
         .from('purchases')
-        .select('character')
+        .select('img, price, character')
         .eq('email', user.email)
       if (error) {
         console.error(error)
       } else {
+        this.purchases = purchases.reduce((result, purchase) => {
+          const characters = purchase.character.flat()
+          const prices = purchase.price.flat()
+          const images = purchase.img.flat()
+
+          characters.forEach((character, index) => {
+            result.push({
+              img: images[index],
+              character: character,
+              price: prices[index]
+            })
+          })
+          return result
+        }, [])
         for (const row of purchases) {
           const columnArray = row.character
           for (const subArray of columnArray) {
